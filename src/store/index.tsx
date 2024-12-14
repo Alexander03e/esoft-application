@@ -1,12 +1,21 @@
-import { create, StateCreator } from 'zustand';
+import { StateCreator, create } from 'zustand';
 import { IAppActions, IAppState } from './types';
-
+// import { create } from './utils';
 type AppSlice = IAppState & IAppActions;
 
 const appSlice: StateCreator<AppSlice> = set => ({
     role: null,
-
+    content: null,
     currentWindow: null,
+    resource: null,
+
+    setResource: resource => {
+        set({ resource });
+    },
+
+    setContent: content => {
+        set({ content });
+    },
 
     setWindow: window => {
         set({ currentWindow: window });
