@@ -1,6 +1,6 @@
 import { useForm } from '@/Shared/hooks/useForm';
 import { EValidationStatus, IForm } from '@/Shared/types/form';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, Snackbar, TextField, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { FormEvent, useState } from 'react';
 
@@ -29,24 +29,30 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     console.log(defaultValues);
     const { register, formData } = useForm<Record<string, string>>({ defaultValues });
     const [error, setError] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        if (customOnSubmit) {
-            const data = customOnSubmit(formData as T);
+        try {
+            if (customOnSubmit) {
+                const data = customOnSubmit(formData as T);
 
-            if (data && data?.status === EValidationStatus.ERROR) {
-                setError(data.msg || 'Проверьте правильность введенных полей.');
+                if (data && data?.status === EValidationStatus.ERROR) {
+                    setError(data.msg || 'Проверьте правильность введенных полей.');
 
-                return;
+                    return;
+                }
             }
-        }
 
-        setError('');
+            setError('');
 
-        if (handleSend) {
-            handleSend(formData as T);
+            if (handleSend) {
+                handleSend(formData as T);
+                setOpenSnackbar(true);
+            }
+        } catch {
+            setError('Произошла ошибка при отправке данных.');
         }
     };
 
@@ -74,6 +80,14 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
             <Button type='submit' variant='contained'>
                 {submitButton?.label || 'Отправить'}
             </Button>
+
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={2000}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                message='Данные отправлены'
+                onClose={() => setOpenSnackbar(false)}
+            />
         </Box>
     );
 }

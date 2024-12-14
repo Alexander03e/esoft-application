@@ -2,6 +2,7 @@ import { Card, CardActions, CardContent, Divider, Typography } from '@mui/materi
 import { ReactElement } from 'react';
 import { IAgent } from '../types';
 import { EditButton } from '@/Components/buttons/EditButton';
+import { DeleteButton } from '@/Components/buttons/DeleteButton';
 
 export const AgentCard = (props: IAgent): ReactElement => {
     const { firstname, lastname, patronymic, id, proportion } = props;
@@ -21,6 +22,7 @@ export const AgentCard = (props: IAgent): ReactElement => {
             </CardContent>
             <CardActions>
                 <EditButton id={id} />
+                <DeleteButton id={id} />
             </CardActions>
         </Card>
     );

@@ -8,7 +8,7 @@ export const inputs: IInput[] = [
     },
     {
         name: 'lastname',
-        placeholder: 'Имя',
+        placeholder: 'Фамилия',
         required: true
     },
     {

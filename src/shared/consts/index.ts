@@ -20,6 +20,13 @@ export const PATHS = {
             CREATE: '/realtor/client/create',
             UPDATE: '/realtor/client/update/:id',
         },
+
+        ESTATE: {
+            INDEX: '/estate',
+            ABSOLUTE: '/realtor/estate',
+            CREATE: '/realtor/estate/create',
+            UPDATE: '/realtor/estate/update/:id',
+        }
     },
 
     CLIENT: {
@@ -47,6 +54,7 @@ export const USER_MENU: Record<TRoleWithoutNull, Record<string, string>> = {
         [PATHS.REALTOR.MAIN.ABSOLUTE]: 'Главная',
         [PATHS.REALTOR.AGENTS.ABSOLUTE]: 'Агенты',
         [PATHS.REALTOR.CLIENTS.ABSOLUTE]: 'Клиенты',
+        [PATHS.REALTOR.ESTATE.ABSOLUTE]: 'Недвижимость',
     },
 };
 
@@ -63,5 +71,11 @@ export const TRANSLATES: Record<string, Record<string, string>> = {
         show: "риелтора",
         create: "риелтора",
         edit: "риелтора"
+    },
+    [ENTITIES.ESTATE]: {
+        index: "Недвижимость",
+        show: "недвижимость",
+        create: "недвижимость",
+        edit: "недвижимости"
     }
 }

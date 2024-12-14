@@ -19,5 +19,5 @@ export const ClientCreate = () => {
         }
     };
 
-    return <Create inputs={inputs} formProps={{ customOnSubmit: handleSubmit }}></Create>;
+    return <Create inputs={inputs} formProps={{ customOnSubmit: handleSubmit }} />;
 };

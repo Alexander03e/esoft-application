@@ -10,7 +10,7 @@ import { FormBuilder } from './FormBuilder';
 import { IInput } from '@/Shared/types/form';
 
 interface IProps {
-    inputs: IInput[];
+    inputs: IInput<unknown>[];
     children?: ReactNode;
     customForm?: ReactNode;
     formProps?: Omit<ComponentProps<typeof FormBuilder>, 'inputs'>;

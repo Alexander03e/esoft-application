@@ -11,7 +11,7 @@ import { TRANSLATES } from '@/Shared/consts';
 import { KeyboardBackspace } from '@mui/icons-material';
 
 interface IProps {
-    inputs: IInput[];
+    inputs: IInput<unknown>[];
     customForm?: ReactNode;
     children?: ReactNode;
     formProps?: Omit<ComponentProps<typeof FormBuilder>, 'inputs'>;

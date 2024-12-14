@@ -16,11 +16,12 @@ export enum EValidationStatus {
     SUCCESS
 }
 
-export type TInputType = 'email' | 'text' | "number" | "phone"
+export type TInputType = 'email' | 'text' | "number" | "phone" | "select"
 
-export interface IInput<T = unknown> {
-    name: string | keyof T
+export interface IInput<T, K extends boolean = false> {
+    name: K extends false ? string : keyof T
     placeholder?: string;
     required?: boolean
     type?: TInputType
+    selects?: string[]
 }

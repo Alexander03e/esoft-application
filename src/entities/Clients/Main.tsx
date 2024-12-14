@@ -13,7 +13,17 @@ export const Main = () => {
             <Grid gap={2} container>
                 {data &&
                     data?.map(item => (
-                        <Grid size={{ xs: 2, md: 3.88 }}>
+                        <Grid
+                            sx={{
+                                xs: 12,
+                                sm: 6,
+                                md: 4,
+                                lg: 3.4,
+
+                                flex: '1 1 auto',
+                            }}
+                            key={item.id}
+                        >
                             <ClientCard {...item} />
                         </Grid>
                     ))}
