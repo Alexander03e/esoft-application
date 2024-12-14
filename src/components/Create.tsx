@@ -1,31 +1,41 @@
 import { Box, Button, Typography } from '@mui/material';
-import { ReactNode, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { ComponentProps, ReactNode, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store';
 import { EWindowType } from '@/Store/types';
 import { KeyboardBackspace } from '@mui/icons-material';
-import { USER_MENU } from '@/Shared/consts';
+import { TRANSLATES } from '@/Shared/consts';
+import { useCreate } from '@/Shared/api/hooks';
+import { FormBuilder } from './FormBuilder';
+import { IInput } from '@/Shared/types/form';
 
 interface IProps {
-    name: string;
+    inputs: IInput[];
     children?: ReactNode;
+    customForm?: ReactNode;
+    formProps?: Omit<ComponentProps<typeof FormBuilder>, 'inputs'>;
 }
 
-export const Create = ({ name, children }: IProps) => {
+export const Create = ({ children, inputs, customForm, formProps }: IProps) => {
     const navigate = useNavigate();
-    const { setContent } = useAppStore();
-    const { pathname } = useLocation();
+    const { setContent, resource } = useAppStore();
 
     useEffect(() => {
-        setContent({ name, action: EWindowType.CREATE });
+        setContent({ name: '', action: EWindowType.CREATE });
     }, []);
 
     const onBack = () => {
         navigate(-1);
     };
 
+    const TITLE = `Создание ${
+        TRANSLATES[resource ?? ''][EWindowType.CREATE.toString().toLowerCase()] ?? ''
+    }`;
+
+    const { mutateAsync } = useCreate({ resource: resource! });
+
     return (
-        <>
+        <Box display='flex' flexDirection='column' gap='14px'>
             <Box display='flex' alignItems={'center'} gap={2} mb={4}>
                 <Button
                     onClick={onBack}
@@ -35,10 +45,15 @@ export const Create = ({ name, children }: IProps) => {
                     color='primary'
                 />
                 <Typography variant='h1' fontWeight={600}>
-                    {name || USER_MENU.REALTOR[pathname]}
+                    {TITLE}
                 </Typography>
             </Box>
+            {!customForm ? (
+                <FormBuilder handleSend={mutateAsync} inputs={inputs} {...formProps} />
+            ) : (
+                customForm
+            )}
             {children}
-        </>
+        </Box>
     );
 };

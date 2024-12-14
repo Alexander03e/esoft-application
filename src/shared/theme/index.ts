@@ -17,6 +17,30 @@ export const theme = createTheme({
         }
     },  
     components: {
+        MuiOutlinedInput: {
+            styleOverrides: {
+                notchedOutline: {
+                    borderRadius: "8px"
+                }
+            }
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                
+                root: {
+                    borderColor: "red",
+                    border: "none"
+                }
+            }
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "white",
+                    borderRadius: "8px",
+                }
+            }
+        },
         MuiButton: {
             styleOverrides: {
                 colorPrimary: Colors.button.primary,

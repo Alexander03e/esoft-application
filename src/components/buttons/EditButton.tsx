@@ -4,14 +4,18 @@ import { Edit } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export const EditButton = () => {
+interface IProps {
+    id: number;
+}
+
+export const EditButton = ({ id }: IProps) => {
     const navigate = useNavigate();
     const navigateCreate = () => {
-        navigate('edit/:id');
+        navigate(`edit/${id}`);
     };
     const { resource } = useAppStore();
     return (
-        <Button onClick={navigateCreate} startIcon={<Edit />} variant='outlined' color='primary'>
+        <Button onClick={navigateCreate} startIcon={<Edit />} variant='outlined' color='info'>
             Редактировать {resource ? TRANSLATES[resource]['edit'] || '' : ''}
         </Button>
     );

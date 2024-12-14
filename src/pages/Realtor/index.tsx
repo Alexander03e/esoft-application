@@ -16,7 +16,13 @@ export const RealtorPage = () => {
             flexDirection='column'
             gap={4}
         >
-            <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <Box
+                sx={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
+            >
                 <Outlet />
             </Box>
         </Box>

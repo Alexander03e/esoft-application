@@ -2,10 +2,10 @@ import { TRole } from "@/Shared/types"
 
 
 export enum EWindowType {
-    CREATE,
-    EDIT,
-    SHOW,
-    LIST
+    CREATE = 'create',
+    EDIT = 'edit',
+    SHOW = 'show',
+    LIST = 'list'
 }
 
 type ContentType = {
@@ -22,7 +22,7 @@ export interface IAppState {
 }
 
 export interface IAppActions {
-    setResource: (res: string) => void
+    setResource: (res: string | null) => void
     setRole: (role: TRole) => void
     setWindow: (window: string | null) => void
     setContent: (content: ContentType) => void

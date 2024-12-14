@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 export function useForm<T extends { [K in keyof T]: string }>({
     defaultValues = {},
@@ -6,6 +6,10 @@ export function useForm<T extends { [K in keyof T]: string }>({
     defaultValues?: T | object;
 }) {
     const [formData, setFormData] = useState<Partial<T>>(defaultValues as T);
+
+    useEffect(() => {
+        setFormData(defaultValues);
+    }, [defaultValues]);
 
     const handleChange = useCallback(
         (name: keyof T) => (value: string) => {

@@ -1,5 +1,7 @@
+import { Edit } from '@/Components/Edit';
 import { ReactElement } from 'react';
+import { inputs } from './Inputs';
 
-export const Edit = (): ReactElement => {
-    return <div>edit</div>;
+export const EditAgent = (): ReactElement => {
+    return <Edit inputs={inputs} />;
 };

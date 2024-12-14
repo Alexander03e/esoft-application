@@ -2,22 +2,22 @@ import { IInput } from '@/Shared/types/form';
 
 export const inputs: IInput[] = [
     {
-        name: 'name',
+        name: 'firstname',
         placeholder: 'Имя',
         required: true
     },
     {
-        name: 'surname',
+        name: 'lastname',
         placeholder: 'Имя',
         required: true
     },
     {
-        name: 'lastName',
+        name: 'patronymic',
         placeholder: 'Отчество',
         required: true
     },
     {
-        name: 'comission',
+        name: 'proportion',
         placeholder: 'Доля от комиссии',
     },
     

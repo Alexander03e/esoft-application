@@ -1,17 +1,27 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { Menu } from './Menu';
-import { Box } from '@mui/material';
+import { Box, Grid2 as Grid } from '@mui/material';
 import { PATHS } from '@/Shared/consts';
 
 export const Layout = () => {
     const { pathname } = useLocation();
 
     return (
-        <Box display='flex' overflow={'hidden'}>
-            {pathname !== PATHS.INDEX && <Menu />}
-            <Box sx={{ padding: 3, width: '100%' }}>
-                <Outlet />
-            </Box>
-        </Box>
+        <Grid container overflow={'hidden'}>
+            <Grid size={{ sm: 3 }}>{pathname !== PATHS.INDEX && <Menu />}</Grid>
+            <Grid height='100vh' overflow='auto' size={{ sm: 9 }}>
+                <Box
+                    sx={{
+                        backgroundColor: '#e7e7e7',
+                        minHeight: '100vh',
+                        height: 'auto',
+                        padding: 3,
+                        width: '100%',
+                    }}
+                >
+                    <Outlet />
+                </Box>
+            </Grid>
+        </Grid>
     );
 };

@@ -11,14 +11,14 @@ export const PATHS = {
         },
 
         AGENTS: {
-            ABSOLUTE: '/realtor/agents',
+            ABSOLUTE: '/realtor/agent',
         },
 
         CLIENTS: {
             INDEX: '/clients',
-            ABSOLUTE: '/realtor/clients',
-            CREATE: '/realtor/clients/create',
-            UPDATE: '/realtor/clients/update/:id',
+            ABSOLUTE: '/realtor/client',
+            CREATE: '/realtor/client/create',
+            UPDATE: '/realtor/client/update/:id',
         },
     },
 
@@ -52,13 +52,13 @@ export const USER_MENU: Record<TRoleWithoutNull, Record<string, string>> = {
 
 
 export const TRANSLATES: Record<string, Record<string, string>> = {
-    clients: {
+    [ENTITIES.CLIENT]: {
         index: "Клиенты",
         show: "клиента",
         create: "клиента",
         edit: "клиента"
     },
-    agents: {
+    [ENTITIES.AGENT]: {
         index: "Риелторы",
         show: "риелтора",
         create: "риелтора",

@@ -6,7 +6,7 @@ import { FormEvent, useState } from 'react';
 
 type Props<T> = IForm<T> & {
     defaultValues?: Partial<T>;
-    onSubmit?: () => void;
+    handleSend?: (data: T) => void;
     submitButton?: {
         label: string;
     };
@@ -23,9 +23,10 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     inputs,
     submitButton,
     defaultValues,
-    onSubmit,
+    handleSend,
     customOnSubmit,
 }: Props<T>) {
+    console.log(defaultValues);
     const { register, formData } = useForm<Record<string, string>>({ defaultValues });
     const [error, setError] = useState('');
 
@@ -44,8 +45,8 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
 
         setError('');
 
-        if (onSubmit) {
-            onSubmit();
+        if (handleSend) {
+            handleSend(formData as T);
         }
     };
 
