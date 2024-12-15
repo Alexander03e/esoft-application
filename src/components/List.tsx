@@ -18,6 +18,7 @@ interface IProps {
     children?: ReactNode;
     search?: boolean;
     customCreate?: ReactNode;
+    listId?: string;
     filters?: Record<string, IFilter[]>;
     onDataLoad?: (data: [] | undefined) => void;
 }
@@ -28,6 +29,7 @@ export const List = ({
     children,
     filters,
     search,
+    listId,
     onDataLoad,
     customCreate,
 }: IProps): ReactElement => {
@@ -36,13 +38,14 @@ export const List = ({
     const [currentFilters, setCurrentFilters] = useState<Record<string, IFilter>>({});
     const [filtersOpen, setFiltersOpen] = useState(false);
     const filtersFormatted = Object.fromEntries(
-        Object.entries(currentFilters).map(([key, filter]) => [key, filter.value]),
+        Object.entries(currentFilters).map(([key, filter]) => [key, filter?.value]),
     );
 
     const { data, isLoading, isError } = useData({
         resource: resource!,
         search: searchValue,
         filters: filtersFormatted,
+        id: listId ? +listId : undefined,
     });
     // @ts-ignore
     const isEmpty = !data || !data?.length || isError;
@@ -73,42 +76,44 @@ export const List = ({
                     {customCreate ?? (create && <CreateButton />)}
                 </Toolbar>
             )}
-            <Toolbar
-                closeTitle='Закрыть фильтры'
-                open={filtersOpen}
-                onToggle={() => setFiltersOpen(prev => !prev)}
-                openTitle={filters ? 'Открыть фильтры' : ''}
-                sx={{ mt: 2 }}
-            >
-                {filters &&
-                    Object.entries(filters).map(([key, values]) => {
-                        const handleChange = (value: IFilter | null) => {
-                            console.log(value);
-                            if (value === null) {
-                                setCurrentFilters(prev => {
-                                    const newFilters = { ...prev };
-                                    delete newFilters[key];
-                                    return newFilters;
-                                });
-                            } else {
-                                // Устанавливаем новое значение фильтра
-                                setCurrentFilters(prev => ({ ...prev, [key]: value }));
-                            }
-                        };
+            {filters && (
+                <Toolbar
+                    closeTitle='Закрыть фильтры'
+                    open={filtersOpen}
+                    onToggle={() => setFiltersOpen(prev => !prev)}
+                    openTitle={filters ? 'Открыть фильтры' : ''}
+                    sx={{ mt: 2 }}
+                >
+                    {filters &&
+                        Object.entries(filters).map(([key, values]) => {
+                            const handleChange = (value: IFilter | null) => {
+                                console.log(value);
+                                if (value === null) {
+                                    setCurrentFilters(prev => {
+                                        const newFilters = { ...prev };
+                                        delete newFilters[key];
+                                        return newFilters;
+                                    });
+                                } else {
+                                    // Устанавливаем новое значение фильтра
+                                    setCurrentFilters(prev => ({ ...prev, [key]: value }));
+                                }
+                            };
 
-                        const label = getLabel(key);
+                            const label = getLabel(key);
 
-                        return (
-                            <DropFilter
-                                value={currentFilters?.[key] || null}
-                                fields={values}
-                                label={label}
-                                // @ts-ignore
-                                onChange={handleChange}
-                            />
-                        );
-                    })}
-            </Toolbar>
+                            return (
+                                <DropFilter
+                                    value={currentFilters?.[key] || null}
+                                    fields={values}
+                                    label={label}
+                                    // @ts-ignore
+                                    onChange={handleChange}
+                                />
+                            );
+                        })}
+                </Toolbar>
+            )}
             <Box sx={{ height: '100%' }} mt={4}>
                 {isLoading ? <Loader /> : isEmpty ? <Empty /> : children}
             </Box>

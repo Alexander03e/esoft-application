@@ -14,6 +14,12 @@ export const PATHS = {
             ABSOLUTE: '/realtor/agent',
         },
 
+        MOBILE: {
+            ABSOLUTE: "/realtor/mobile",
+            CREATE: "/realtor/mobile/create",
+            UPDATE: "/realtor/mobile/update/:id"
+        },
+
         CLIENTS: {
             INDEX: '/clients',
             ABSOLUTE: '/realtor/client',
@@ -48,7 +54,8 @@ export const ENTITIES = {
     CLIENT: 'client',
     ESTATE: 'estate',
     AGENT: 'agent',
-    REQUIREMENT: 'requirement'
+    REQUIREMENT: 'requirement',
+    EVENT: "event"
 };
 
 type TRoleWithoutNull = Exclude<TRole, null>;
@@ -91,6 +98,12 @@ export const TRANSLATES: Record<string, Record<string, string>> = {
         show: "потребность",
         create: "потребность",
         edit: "потребности"
+    },
+    [ENTITIES.EVENT]: {
+        index: "Событие",
+        show: "событие",
+        create: "события",
+        edit: "событие"
     }
 }
 

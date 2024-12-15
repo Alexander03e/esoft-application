@@ -7,6 +7,7 @@ import { PATHS } from './shared/consts';
 import { Agents, Clients } from '@/Entities';
 import { Estate } from './entities/Estate';
 import { Requirement } from './entities/Requirement';
+import { Mobile } from './entities/Mobile';
 
 export const AppRoutes = () => {
     return (
@@ -18,6 +19,7 @@ export const AppRoutes = () => {
                     <Route path={`${PATHS.REALTOR.AGENTS.ABSOLUTE}/*`} element={<Agents />} />
                     <Route path={`${PATHS.REALTOR.CLIENTS.ABSOLUTE}/*`} element={<Clients />} />
                     <Route path={`${PATHS.REALTOR.ESTATE.ABSOLUTE}/*`} element={<Estate />} />
+                    <Route path={`${PATHS.REALTOR.MOBILE.ABSOLUTE}/*`} element={<Mobile />} />
                     <Route
                         path={`${PATHS.REALTOR.REQUIREMENT.ABSOLUTE}/*`}
                         element={<Requirement />}

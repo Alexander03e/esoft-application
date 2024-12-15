@@ -1,6 +1,6 @@
 import { create, StateCreator } from "zustand";
 import { ICreateSlice } from "./types";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from 'zustand/middleware';
 
 const createSlice: StateCreator<ICreateSlice, [['zustand/devtools', unknown]]> = (set, get) => ({
     customInputs: null,
@@ -23,5 +23,4 @@ const createSlice: StateCreator<ICreateSlice, [['zustand/devtools', unknown]]> =
 });
 
 export const useCreateStore = create<ICreateSlice>()(
-    devtools(createSlice,
-))
+    devtools(persist(createSlice, { name: 'createStore', partialize: state => state })))

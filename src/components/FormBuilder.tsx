@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useMedia } from '@/Shared/hooks/useBreakpoints';
 import { useForm } from '@/Shared/hooks/useForm';
 import { EValidationStatus, IForm, IInput } from '@/Shared/types/form';
 import { Box, Button, MenuItem, Select, Snackbar, TextField, Typography } from '@mui/material';
@@ -11,6 +12,8 @@ type Props<T> = IForm<T> & {
     submitButton?: {
         label: string;
     };
+    customFields?: Record<string, string>;
+    customId?: string;
     specialAreaType?: string;
     dynamicInputs?: (data: T, setInputs: (inputs: IInput<unknown>[]) => void) => void;
     resetOnFinish?: boolean;
@@ -29,7 +32,9 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     defaultValues,
     handleSend,
     customOnSubmit,
+    customFields,
     resetOnFinish,
+    customId,
     dynamicInputs,
     specialAreaType,
 }: Props<T>) {
@@ -37,7 +42,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [formInputs, setFormInputs] = useState(inputs);
-
+    const { isDesktop } = useMedia();
     console.log(formInputs);
     useEffect(() => {
         if (dynamicInputs) {
@@ -63,6 +68,17 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
 
             if (specialAreaType) {
                 filteredFormData['type'] = specialAreaType;
+            }
+
+            if (customId) {
+                filteredFormData['id'] = customId;
+            }
+
+            if (customFields) {
+                Object.entries(customFields).map(([key, value]) => {
+                    if (!value) return;
+                    filteredFormData[key] = value;
+                });
             }
 
             if (customOnSubmit) {
@@ -97,7 +113,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                 display='grid'
                 width='100%'
                 flexDirection='column'
-                gridTemplateColumns='1fr 1fr'
+                gridTemplateColumns={isDesktop ? '1fr 1fr' : '1fr'}
                 gap={4}
             >
                 {formInputs?.map(input => {

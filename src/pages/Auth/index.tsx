@@ -1,15 +1,41 @@
 import { Colors } from '@/Shared/theme/tokens';
-import { Box, Button } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import Logo from '@/Assets/icons/logo_name.svg?react';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '@/Shared/consts';
 import { useAppStore } from '@/Store/index';
+import axios from 'axios';
+import { useMobileStore } from '@/Store/mobileSlice';
+import { useMedia } from '@/Shared/hooks/useBreakpoints';
+import { useState } from 'react';
 
 export const AuthPage = () => {
     const navigate = useNavigate();
     const { setRole } = useAppStore();
+    const { setRealtorId } = useMobileStore();
+    const { isDesktop } = useMedia();
+    const [id, setId] = useState('');
+    const [error, setError] = useState(false);
 
-    const navigateRealtor = () => {
+    const navigateRealtor = async () => {
+        if (!isDesktop && id) {
+            try {
+                const agent = (await axios.get(`http://85.192.49.26:8888/agent/${id}`)).data;
+
+                if (agent) {
+                    setRealtorId(id);
+
+                    navigate('/realtor/mobile');
+
+                    return;
+                }
+            } catch (e) {
+                console.log(e);
+                setError(true);
+
+                return;
+            }
+        }
         navigate(PATHS.REALTOR.MAIN.ABSOLUTE);
         setRole('REALTOR');
     };
@@ -28,7 +54,7 @@ export const AuthPage = () => {
             sx={{ width: '100vw', height: '100vh', backgroundColor: Colors.background.default }}
         >
             <Box
-                width='30vw'
+                width='60%'
                 display='flex'
                 flexDirection='column'
                 alignItems={'center'}
@@ -47,6 +73,16 @@ export const AuthPage = () => {
                 }}
             >
                 <Logo />
+
+                {error && <Typography sx={{ color: 'white' }}>Введите ID риелтора</Typography>}
+                {!isDesktop && (
+                    <TextField
+                        variant='outlined'
+                        sx={{ width: '100%' }}
+                        onChange={e => setId(e.target.value)}
+                        placeholder='Ваш id'
+                    />
+                )}
 
                 <Button color='secondary' onClick={navigateRealtor} variant='contained'>
                     Вход в систему

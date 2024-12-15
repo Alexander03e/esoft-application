@@ -16,7 +16,7 @@ export enum EValidationStatus {
     SUCCESS
 }
 
-export type TInputType = 'email' | 'text' | "number" | "phone" | "select"
+export type TInputType = 'email' | 'text' | "number" | "phone" | "select" | "date" | "datetime-local"
 
 export interface IInput<T, K extends boolean = false> {
     name: K extends false ? string : keyof T
