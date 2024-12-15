@@ -27,6 +27,7 @@ export interface IInput<T, K extends boolean = false> {
     max?: number
     selects?: string[]
     activeIf?: Record<string, string>[]
+    translateOptions?: string[]
 }
 
 export interface IFilter {

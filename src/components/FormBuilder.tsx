@@ -13,7 +13,6 @@ type Props<T> = IForm<T> & {
         label: string;
     };
     customFields?: Record<string, string>;
-    customId?: string;
     specialAreaType?: string;
     dynamicInputs?: (data: T, setInputs: (inputs: IInput<unknown>[]) => void) => void;
     resetOnFinish?: boolean;
@@ -34,7 +33,6 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     customOnSubmit,
     customFields,
     resetOnFinish,
-    customId,
     dynamicInputs,
     specialAreaType,
 }: Props<T>) {
@@ -68,10 +66,6 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
 
             if (specialAreaType) {
                 filteredFormData['type'] = specialAreaType;
-            }
-
-            if (customId) {
-                filteredFormData['id'] = customId;
             }
 
             if (customFields) {
@@ -139,11 +133,16 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                                 defaultValue={input.selects[0]}
                                 color='info'
                             >
-                                {input.selects.map(option => (
-                                    <MenuItem key={option} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
+                                {input.selects.map((option, index) => {
+                                    const formattedOption = input?.translateOptions
+                                        ? input.translateOptions[index]
+                                        : option;
+                                    return (
+                                        <MenuItem key={option} value={option}>
+                                            {formattedOption}
+                                        </MenuItem>
+                                    );
+                                })}
                             </Select>
                         );
                     }

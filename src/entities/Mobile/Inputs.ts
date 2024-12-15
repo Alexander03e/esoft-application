@@ -3,16 +3,20 @@ import { IInput } from "@/Shared/types/form";
 export const Inputs: IInput<unknown>[] = [
     {
         name: "comment",
-        placeholder: "Комментарий"
+        placeholder: "Комментарий",
+        required: true
     },
     {
         name: "typesOfIvent",
         type: "select",
-        selects: ['MeetingWithTheClient', 'ShowingAnObject', 'ScheduledCall']
+        selects: ['MeetingWithTheClient', 'ShowingAnObject', 'ScheduledCall'],
+        translateOptions: ['Встреча с клиентом', 'Показ', 'Запланированный звонок'],
+        required: true
     },
     {
         name: "dateTime",
         placeholder: "Время",
-        type: "datetime-local"
+        type: "datetime-local",
+        required: true
     }
 ]

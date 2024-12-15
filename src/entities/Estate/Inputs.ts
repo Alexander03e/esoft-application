@@ -98,7 +98,8 @@ export const Inputs: IInput<unknown>[] = [
         placeholder: "Выберите тип",
         type: 'select',
         required: true,
-        selects: ["AREA", "HOUSE", "FLAT"]
+        selects: ["AREA", "HOUSE", "FLAT"],
+        translateOptions: ['Участок', 'Дом', "Квартира"]
     }
 ]
 
