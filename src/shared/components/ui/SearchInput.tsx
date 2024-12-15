@@ -14,9 +14,10 @@ export const SearchInput = ({ onSearchClick, onSearched, ...props }: Props) => {
     const debouncedSearch = useCallback(
         debounce((value: string) => {
             if (onSearched) {
-                onSearched(value);
+                const clearedValue = value.replace(/\s+/g, '');
+                onSearched(clearedValue);
             }
-        }, 500),
+        }, 700),
         [],
     );
 

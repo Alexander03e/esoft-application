@@ -49,7 +49,12 @@ export const Create = ({ children, inputs, customForm, formProps }: IProps) => {
                 </Typography>
             </Box>
             {!customForm ? (
-                <FormBuilder handleSend={mutateAsync} inputs={inputs} {...formProps} />
+                <FormBuilder
+                    resetOnFinish
+                    handleSend={mutateAsync}
+                    inputs={inputs}
+                    {...formProps}
+                />
             ) : (
                 customForm
             )}

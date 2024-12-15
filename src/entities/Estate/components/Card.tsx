@@ -4,6 +4,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { EditButton } from '@/Components/buttons/EditButton';
 import { DeleteButton } from '@/Components/buttons/DeleteButton';
 import HomeIcon from '@mui/icons-material/Home';
+import { ESTATE_TYPES } from '@/Shared/consts';
 
 export const EstateCard = (props: IEstate): React.ReactElement => {
     const {
@@ -39,7 +40,7 @@ export const EstateCard = (props: IEstate): React.ReactElement => {
                     <Grid size={{ xs: 6 }}>
                         <Typography>
                             <HomeIcon sx={{ verticalAlign: 'middle', marginRight: 1 }} />
-                            Тип: {type || noValue}
+                            Тип: {ESTATE_TYPES[type] || noValue}
                         </Typography>
                     </Grid>
                     <Grid size={{ xs: 6 }}>

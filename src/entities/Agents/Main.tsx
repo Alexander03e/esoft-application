@@ -1,23 +1,14 @@
 import { List } from '@/Components/List';
-import { ENTITIES } from '@/Shared/consts';
 import { Grid2 as Grid } from '@mui/material';
 import { IAgent } from './types';
-import { useData } from '@/Shared/api/hooks';
 import { AgentCard } from './components/Card';
-import { SearchInput } from '@/Shared/components/ui/SearchInput';
 import { useState } from 'react';
 
 export const Main = () => {
-    const [value, setValue] = useState('');
-    const { data, isLoading } = useData<IAgent[]>({ resource: ENTITIES.AGENT, search: value });
+    const [data, setData] = useState<IAgent[] | undefined>([]);
 
     return (
-        <List
-            loading={isLoading}
-            empty={!data || !data?.length}
-            create
-            search={<SearchInput onSearched={setValue} />}
-        >
+        <List onDataLoad={data => setData(data)} create search>
             <Grid gap={2} container>
                 {data &&
                     data?.map(item => (

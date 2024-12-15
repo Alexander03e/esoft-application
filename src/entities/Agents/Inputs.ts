@@ -19,7 +19,7 @@ export const inputs: IInput<unknown>[] = [
     {
         name: 'proportion',
         placeholder: 'Доля от комиссии',
-        min: 0,
+        min: "0",
         max: 100,
         type: 'number'
     },

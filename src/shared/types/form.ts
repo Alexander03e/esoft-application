@@ -23,7 +23,13 @@ export interface IInput<T, K extends boolean = false> {
     placeholder?: string;
     required?: boolean
     type?: TInputType
-    min?: number
+    min?: number | string
     max?: number
     selects?: string[]
+    activeIf?: Record<string, string>[]
+}
+
+export interface IFilter {
+    label: string;
+    value: string
 }

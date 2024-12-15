@@ -6,7 +6,7 @@ export function useForm<T extends { [K in keyof T]: string }>({
 }: {
     defaultValues?: T | object;
 }) {
-    const [formData, setFormData] = useState<Partial<T>>((defaultValues as T) ?? {});
+    const [formData, setFormData] = useState<Partial<T>>((defaultValues as T) || {});
     // console.log(defaultValues);
     useEffect(() => {
         if (defaultValues) {
@@ -25,6 +25,7 @@ export function useForm<T extends { [K in keyof T]: string }>({
         (name: keyof T) => {
             return {
                 value: formData[name] || '',
+
                 // @ts-ignore
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 onChange: (e: any) => handleChange(name)(e.target.value),

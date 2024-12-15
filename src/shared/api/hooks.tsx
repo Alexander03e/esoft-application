@@ -12,9 +12,10 @@ interface IProps {
     resource: string;
     id?: number;
     search?: string;
+    filters?: Record<string, string>;
 }
 
-export function useData<T>({ resource, id, search }: IProps): UseQueryResult<T> {
+export function useData<T>({ resource, id, search, filters }: IProps): UseQueryResult<T> {
     const queryKey = [resource];
 
     if (id) queryKey.push(String(id));
@@ -24,6 +25,15 @@ export function useData<T>({ resource, id, search }: IProps): UseQueryResult<T> 
         queryKey: queryKey,
         queryFn: () => fetcher({ resource, id: id, method: 'GET', search }),
         enabled: !!resource,
+        select: (data: T) => {
+            if (!filters) return data;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            return (data as any).filter((item: any) => {
+                return Object.entries(filters || {}).every(([key, value]) => {
+                    return item[key] === value;
+                });
+            });
+        },
     });
 }
 

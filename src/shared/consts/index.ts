@@ -26,6 +26,12 @@ export const PATHS = {
             ABSOLUTE: '/realtor/estate',
             CREATE: '/realtor/estate/create',
             UPDATE: '/realtor/estate/update/:id',
+        },
+        REQUIREMENT: {
+            INDEX: '/requirement',
+            ABSOLUTE: "/realtor/requirement",
+            CREATE: "/realtor/requirement/create",
+            UPDATE: "/realtor/requirement/update/:id",
         }
     },
 
@@ -42,6 +48,7 @@ export const ENTITIES = {
     CLIENT: 'client',
     ESTATE: 'estate',
     AGENT: 'agent',
+    REQUIREMENT: 'requirement'
 };
 
 type TRoleWithoutNull = Exclude<TRole, null>;
@@ -55,6 +62,7 @@ export const USER_MENU: Record<TRoleWithoutNull, Record<string, string>> = {
         [PATHS.REALTOR.AGENTS.ABSOLUTE]: 'Агенты',
         [PATHS.REALTOR.CLIENTS.ABSOLUTE]: 'Клиенты',
         [PATHS.REALTOR.ESTATE.ABSOLUTE]: 'Недвижимость',
+        [PATHS.REALTOR.REQUIREMENT.ABSOLUTE]: 'Потребности',
     },
 };
 
@@ -77,5 +85,18 @@ export const TRANSLATES: Record<string, Record<string, string>> = {
         show: "недвижимость",
         create: "недвижимость",
         edit: "недвижимости"
+    },
+    [ENTITIES.REQUIREMENT]: {
+        index: "Потребности",
+        show: "потребность",
+        create: "потребность",
+        edit: "потребности"
     }
+}
+
+
+export const ESTATE_TYPES = {
+    FLAT: 'Квартира',
+    AREA: "Земля",
+    HOUSE: "Дом"
 }

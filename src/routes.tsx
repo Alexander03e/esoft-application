@@ -6,6 +6,7 @@ import { AuthPage, MainPage, RealtorPage } from './pages';
 import { PATHS } from './shared/consts';
 import { Agents, Clients } from '@/Entities';
 import { Estate } from './entities/Estate';
+import { Requirement } from './entities/Requirement';
 
 export const AppRoutes = () => {
     return (
@@ -17,6 +18,10 @@ export const AppRoutes = () => {
                     <Route path={`${PATHS.REALTOR.AGENTS.ABSOLUTE}/*`} element={<Agents />} />
                     <Route path={`${PATHS.REALTOR.CLIENTS.ABSOLUTE}/*`} element={<Clients />} />
                     <Route path={`${PATHS.REALTOR.ESTATE.ABSOLUTE}/*`} element={<Estate />} />
+                    <Route
+                        path={`${PATHS.REALTOR.REQUIREMENT.ABSOLUTE}/*`}
+                        element={<Requirement />}
+                    />
                 </Route>
             </Route>
         </Routes>

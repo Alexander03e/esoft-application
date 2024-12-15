@@ -3,9 +3,20 @@ import { IInput } from "@/Shared/types/form";
 export const Inputs: IInput<unknown>[] = [
     {
         name: 'area',
-        placeholder: "Area",
+        placeholder: "Площать",
         type: "number",
-        required: true
+        required: false,
+        activeIf: [
+            {
+                type: "AREA"
+            },
+            {
+                type: "HOUSE"
+            },
+            {
+                type: "FLAT"
+            }
+        ]
     },
     {
         name: 'city',
@@ -49,19 +60,38 @@ export const Inputs: IInput<unknown>[] = [
         name: 'countOfFloors',
         placeholder: "Количество этажей",
         type: "number",
-        required: true
+        required: false,
+        activeIf: [
+            {
+                type: "HOUSE"
+            },
+            {
+                type: "FLAT"
+            }
+        ]
     },
     {
         name: "countOfRooms",
         placeholder: "Количество комнат",
         type: "number",
-        required: true
+        required: false,
+        activeIf: [
+            {
+                type: "HOUSE"
+            }
+        ]
     },
     {
         name: "floor",
         placeholder: "Этаж",
-        required: true,
-        type: "number"
+        required: false,
+        type: "number",
+        activeIf: [
+            {
+                type: "FLAT"
+            }
+        ]
+        
     },
     {
         name: "type",

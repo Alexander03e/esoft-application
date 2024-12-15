@@ -11,6 +11,7 @@ type Props<T> = IForm<T> & {
     submitButton?: {
         label: string;
     };
+    resetOnFinish?: boolean;
     queryOptions?: {
         baseUrl?: string;
         method?: 'POST' | 'PUT' | 'GET';
@@ -26,12 +27,12 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     defaultValues,
     handleSend,
     customOnSubmit,
+    resetOnFinish,
 }: Props<T>) {
-    console.log(defaultValues);
     const { register, formData, resetForm } = useForm<Record<string, string>>({ defaultValues });
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
-
+    console.log(formData);
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
@@ -51,7 +52,9 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
             if (handleSend) {
                 handleSend(formData as T);
                 setOpenSnackbar(true);
-                resetForm();
+                if (resetOnFinish) {
+                    resetForm();
+                }
             }
         } catch {
             setError('Произошла ошибка при отправке данных.');
@@ -71,6 +74,16 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                     let label = input?.placeholder;
                     if (input?.min) label += ` (от ${input.min}`;
                     if (input?.max) label += ` до ${input.max})`;
+
+                    // let disabled = false
+                    // if (input.activeIf && formData[input.name as string]) {
+                    //     const active = input.activeIf.some(
+                    //         activeInput =>
+                    //             formData[activeInput.name as string] === activeInput.value,
+                    //     );
+
+                    //     if (!active)
+                    // }
 
                     if (input.type === 'select' && input?.selects) {
                         return (
@@ -92,6 +105,13 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                         <TextField
                             {...register(input.name as string)}
                             color='info'
+                            sx={{
+                                input: {
+                                    '&:disabled': {
+                                        background: '#ebedf0',
+                                    },
+                                },
+                            }}
                             slotProps={{
                                 input: { inputProps: { min: input.min, max: input.max } },
                             }}
