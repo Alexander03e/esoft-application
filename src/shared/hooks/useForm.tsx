@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState, useCallback, useEffect } from 'react';
 
 export function useForm<T extends { [K in keyof T]: string }>({
@@ -24,8 +25,9 @@ export function useForm<T extends { [K in keyof T]: string }>({
         (name: keyof T) => {
             return {
                 value: formData[name] || '',
-                onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleChange(name)(e.target.value),
+                // @ts-ignore
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onChange: (e: any) => handleChange(name)(e.target.value),
             };
         },
         [formData, handleChange],

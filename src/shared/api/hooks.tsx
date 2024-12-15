@@ -11,12 +11,18 @@ import { fetcher } from '.';
 interface IProps {
     resource: string;
     id?: number;
+    search?: string;
 }
 
-export function useData<T>({ resource, id }: IProps): UseQueryResult<T> {
+export function useData<T>({ resource, id, search }: IProps): UseQueryResult<T> {
+    const queryKey = [resource];
+
+    if (id) queryKey.push(String(id));
+    if (search) queryKey.push(search);
+
     return useQuery({
-        queryKey: [resource, id],
-        queryFn: () => fetcher({ resource, id: id, method: 'GET' }),
+        queryKey: queryKey,
+        queryFn: () => fetcher({ resource, id: id, method: 'GET', search }),
         enabled: !!resource,
     });
 }
@@ -52,6 +58,25 @@ export function useEdit<T>({ resource, id }: IProps): UseMutationResult<T> {
                 // @ts-ignore
                 return newData;
             });
+        },
+    });
+}
+
+export function useDelete<T>({ resource, id }: IProps): UseMutationResult<T> {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationKey: [resource],
+        mutationFn: () => fetcher({ resource, method: 'DELETE', id }),
+        onSuccess: () => {
+            console.log('success');
+            queryClient.setQueryData<T[]>([resource], oldData => {
+                if (!oldData) return [];
+                console.log(oldData);
+                // @ts-ignore
+                return oldData.filter(item => item?.id !== id);
+            });
+            queryClient.invalidateQueries({ queryKey: resource });
+            // @ts-ignore
         },
     });
 }

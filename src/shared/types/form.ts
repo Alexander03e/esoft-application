@@ -23,5 +23,7 @@ export interface IInput<T, K extends boolean = false> {
     placeholder?: string;
     required?: boolean
     type?: TInputType
+    min?: number
+    max?: number
     selects?: string[]
 }

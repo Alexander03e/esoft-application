@@ -4,12 +4,21 @@ import { ENTITIES } from '@/Shared/consts';
 import { IClient } from './types';
 import { ClientCard } from './components/Card';
 import { Grid2 as Grid } from '@mui/material';
+import { SearchInput } from '@/Shared/components/ui/SearchInput';
+import { useState } from 'react';
 
 export const Main = () => {
-    const { data } = useData<IClient[]>({ resource: ENTITIES.CLIENT });
+    const [value, setValue] = useState('');
+
+    const { data, isLoading } = useData<IClient[]>({ resource: ENTITIES.CLIENT, search: value });
 
     return (
-        <List create>
+        <List
+            loading={isLoading}
+            empty={!data || !data?.length}
+            create
+            search={<SearchInput onSearched={setValue} />}
+        >
             <Grid gap={2} container>
                 {data &&
                     data?.map(item => (
@@ -17,9 +26,9 @@ export const Main = () => {
                             sx={{
                                 xs: 12,
                                 sm: 6,
-                                md: 4,
+                                md: 3.88,
                                 lg: 3.4,
-
+                                maxWidth: '32.3%',
                                 flex: '1 1 auto',
                             }}
                             key={item.id}

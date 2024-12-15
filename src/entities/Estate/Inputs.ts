@@ -3,7 +3,9 @@ import { IInput } from "@/Shared/types/form";
 export const Inputs: IInput<unknown>[] = [
     {
         name: 'area',
-        placeholder: "Area"
+        placeholder: "Area",
+        type: "number",
+        required: true
     },
     {
         name: 'city',
@@ -18,39 +20,54 @@ export const Inputs: IInput<unknown>[] = [
     {
         name: "flatNumber", // номер квартиры
         placeholder: "Номер квартиры",
-        required: false
+        required: false,
+        type: "number"
     },
     {
         name: "homeNumber", // номер дома,
         placeholder: "Номер дома",
-        required: false
+        required: false,
+        type: "number"
     },
     {
         name: 'latitude', // широта,
         placeholder: "Широта",
-        required: false
+        required: false,
+        min: -90,
+        max: 90,
+        type: "number"
     },
     {
         name: 'longitude', // долгота,
         placeholder: "Долгота",
-        required: false
+        required: false,
+        min: -180,
+        max: 180,
+        type: "number"
     },
     {
         name: 'countOfFloors',
-        placeholder: "Количество этажей"
+        placeholder: "Количество этажей",
+        type: "number",
+        required: true
     },
     {
         name: "countOfRooms",
         placeholder: "Количество комнат",
+        type: "number",
+        required: true
     },
     {
         name: "floor",
-        placeholder: "Этаж"
+        placeholder: "Этаж",
+        required: true,
+        type: "number"
     },
     {
         name: "type",
-        placeholder: "Тип",
+        placeholder: "Выберите тип",
         type: 'select',
+        required: true,
         selects: ["AREA", "HOUSE", "FLAT"]
     }
 ]

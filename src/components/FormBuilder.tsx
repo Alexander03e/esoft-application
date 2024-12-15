@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useForm } from '@/Shared/hooks/useForm';
 import { EValidationStatus, IForm } from '@/Shared/types/form';
-import { Box, Button, Snackbar, TextField, Typography } from '@mui/material';
+import { Box, Button, MenuItem, Select, Snackbar, TextField, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { FormEvent, useState } from 'react';
 
@@ -27,7 +28,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     customOnSubmit,
 }: Props<T>) {
     console.log(defaultValues);
-    const { register, formData } = useForm<Record<string, string>>({ defaultValues });
+    const { register, formData, resetForm } = useForm<Record<string, string>>({ defaultValues });
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -50,6 +51,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
             if (handleSend) {
                 handleSend(formData as T);
                 setOpenSnackbar(true);
+                resetForm();
             }
         } catch {
             setError('Произошла ошибка при отправке данных.');
@@ -65,14 +67,62 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                 gridTemplateColumns='1fr 1fr'
                 gap={4}
             >
-                {inputs.map(input => (
-                    <TextField
-                        {...register(input.name as string)}
-                        color='info'
-                        label={input.placeholder ?? ''}
-                        type={input?.type || 'text'}
-                    />
-                ))}
+                {inputs.map(input => {
+                    let label = input?.placeholder;
+                    if (input?.min) label += ` (от ${input.min}`;
+                    if (input?.max) label += ` до ${input.max})`;
+
+                    if (input.type === 'select' && input?.selects) {
+                        return (
+                            <Select
+                                {...register(input.name as string)}
+                                label={input.placeholder ?? ''}
+                                defaultValue={input.selects[0]}
+                                color='info'
+                            >
+                                {input.selects.map(option => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        );
+                    }
+                    return (
+                        <TextField
+                            {...register(input.name as string)}
+                            color='info'
+                            slotProps={{
+                                input: { inputProps: { min: input.min, max: input.max } },
+                            }}
+                            required={input.required}
+                            label={label ?? ''}
+                            type={input?.type || 'text'}
+                            onInput={e => {
+                                // @ts-ignore
+                                const numericValue = parseFloat(e.target.value);
+
+                                if (
+                                    input?.max &&
+                                    !isNaN(numericValue) &&
+                                    numericValue > Number(input?.max)
+                                ) {
+                                    // @ts-ignore
+                                    e.target.value = input.max;
+                                }
+
+                                if (
+                                    input?.min &&
+                                    !isNaN(numericValue) &&
+                                    numericValue < Number(input?.min)
+                                ) {
+                                    // @ts-ignore
+                                    e.target.value = input.min;
+                                }
+                            }}
+                        />
+                    );
+                })}
             </Box>
 
             {error && <Typography color={red[300]}>{error}</Typography>}

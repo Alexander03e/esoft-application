@@ -1,15 +1,23 @@
 interface FetcherProps {
     resource: string,
-    method: 'GET' | "POST" | "PUT"
+    method: 'GET' | "POST" | "PUT" | "DELETE"
     baseUrl?: string
     upload?: unknown
     id?: number
+    params?: Record<string, string>[]
+    search?: string
 }
 
-export const fetcher = async ({ method, resource, baseUrl, upload, id}: FetcherProps) => {
+export const fetcher = async ({ method, resource, baseUrl, upload, id, search}: FetcherProps) => {
     if (!resource) return
     const url = baseUrl ||  "http://85.192.49.26:8888/"
-    const res = await fetch(`${url}${resource}${id ? '/'+id : ''}`, {
+    let fetchUrl = `${url}${resource}${id ? '/'+id : ''}`
+
+    if (search) {
+        fetchUrl += `/find/${search}`
+    }
+
+    const res = await fetch(fetchUrl, {
         headers: {
             "Content-Type": "application/json"
         },

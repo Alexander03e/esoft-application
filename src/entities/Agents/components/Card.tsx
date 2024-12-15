@@ -17,8 +17,8 @@ export const AgentCard = (props: IAgent): ReactElement => {
                 <Typography>Имя: {firstname || noValue}</Typography>
                 <Typography>Фамилия: {lastname || noValue}</Typography>
                 <Typography>Отчество: {patronymic || noValue}</Typography>
-                {proportion && <Divider sx={{ marginBlock: 2 }} />}
-                {proportion && <Typography>Доля от сделки: {proportion}</Typography>}
+                <Divider sx={{ marginBlock: 2 }} />
+                <Typography>Доля от сделки: {proportion || 'Не указана'}</Typography>
             </CardContent>
             <CardActions>
                 <EditButton id={id} />

@@ -12,7 +12,16 @@ export const ClientCard = (props: IClient): ReactElement => {
     const noValue = 'Не указано';
 
     return (
-        <Card sx={{ padding: 2, boxShadow: 3, borderRadius: 2 }}>
+        <Card
+            sx={{
+                padding: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: 3,
+                borderRadius: 2,
+                height: 260,
+            }}
+        >
             <CardContent>
                 <Typography gutterBottom sx={{ color: 'text.secondary' }}>
                     ID: {id}
@@ -42,7 +51,7 @@ export const ClientCard = (props: IClient): ReactElement => {
                     )}
                 </Grid>
             </CardContent>
-            <CardActions>
+            <CardActions sx={{ marginTop: 'auto' }}>
                 <EditButton id={id} />
                 <DeleteButton id={id} />
             </CardActions>

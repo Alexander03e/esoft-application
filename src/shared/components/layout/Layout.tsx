@@ -14,8 +14,9 @@ export const Layout = () => {
                     sx={{
                         backgroundColor: '#e7e7e7',
                         minHeight: '100vh',
-                        height: 'auto',
+                        height: '1px',
                         padding: 3,
+                        overflow: 'auto',
                         width: '100%',
                     }}
                 >

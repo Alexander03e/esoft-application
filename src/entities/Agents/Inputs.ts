@@ -1,6 +1,6 @@
 import { IInput } from '@/Shared/types/form';
 
-export const inputs: IInput[] = [
+export const inputs: IInput<unknown>[] = [
     {
         name: 'firstname',
         placeholder: 'Имя',
@@ -19,6 +19,9 @@ export const inputs: IInput[] = [
     {
         name: 'proportion',
         placeholder: 'Доля от комиссии',
+        min: 0,
+        max: 100,
+        type: 'number'
     },
     
 ];
