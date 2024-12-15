@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useForm } from '@/Shared/hooks/useForm';
-import { EValidationStatus, IForm } from '@/Shared/types/form';
+import { EValidationStatus, IForm, IInput } from '@/Shared/types/form';
 import { Box, Button, MenuItem, Select, Snackbar, TextField, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 type Props<T> = IForm<T> & {
     defaultValues?: Partial<T>;
@@ -11,6 +11,8 @@ type Props<T> = IForm<T> & {
     submitButton?: {
         label: string;
     };
+    specialAreaType?: string;
+    dynamicInputs?: (data: T, setInputs: (inputs: IInput<unknown>[]) => void) => void;
     resetOnFinish?: boolean;
     queryOptions?: {
         baseUrl?: string;
@@ -28,17 +30,43 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     handleSend,
     customOnSubmit,
     resetOnFinish,
+    dynamicInputs,
+    specialAreaType,
 }: Props<T>) {
     const { register, formData, resetForm } = useForm<Record<string, string>>({ defaultValues });
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
-    console.log(formData);
+    const [formInputs, setFormInputs] = useState(inputs);
+
+    console.log(formInputs);
+    useEffect(() => {
+        if (dynamicInputs) {
+            dynamicInputs(formData as T, setFormInputs);
+        }
+    }, [formData]);
+
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
         try {
+            const filteredFormData = formData;
+            // const filteredFormData = Object.keys(formData).reduce((obj, key) => {
+            //     if (key === 'id') return obj;
+            //     if (formInputs.some(input => input.name === key)) {
+            //         obj[key] = formData[key];
+            //     } else {
+            //         obj[key] = ' ';
+            //     }
+
+            //     return obj;
+            // }, {});
+
+            if (specialAreaType) {
+                filteredFormData['type'] = specialAreaType;
+            }
+
             if (customOnSubmit) {
-                const data = customOnSubmit(formData as T);
+                const data = customOnSubmit(filteredFormData as T);
 
                 if (data && data?.status === EValidationStatus.ERROR) {
                     setError(data.msg || 'Проверьте правильность введенных полей.');
@@ -50,7 +78,9 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
             setError('');
 
             if (handleSend) {
-                handleSend(formData as T);
+                console.log(filteredFormData, 'FILTERED');
+                console.log(formData, 'FORM');
+                handleSend(filteredFormData as T);
                 setOpenSnackbar(true);
                 if (resetOnFinish) {
                     resetForm();
@@ -70,7 +100,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                 gridTemplateColumns='1fr 1fr'
                 gap={4}
             >
-                {inputs.map(input => {
+                {formInputs?.map(input => {
                     let label = input?.placeholder;
                     if (input?.min) label += ` (от ${input.min}`;
                     if (input?.max) label += ` до ${input.max})`;

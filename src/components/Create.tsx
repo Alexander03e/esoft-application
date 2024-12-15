@@ -13,10 +13,11 @@ interface IProps {
     inputs: IInput<unknown>[];
     children?: ReactNode;
     customForm?: ReactNode;
+    customLabel?: string;
     formProps?: Omit<ComponentProps<typeof FormBuilder>, 'inputs'>;
 }
 
-export const Create = ({ children, inputs, customForm, formProps }: IProps) => {
+export const Create = ({ children, inputs, customLabel, customForm, formProps }: IProps) => {
     const navigate = useNavigate();
     const { setContent, resource } = useAppStore();
 
@@ -28,9 +29,9 @@ export const Create = ({ children, inputs, customForm, formProps }: IProps) => {
         navigate(-1);
     };
 
-    const TITLE = `Создание ${
-        TRANSLATES[resource ?? ''][EWindowType.CREATE.toString().toLowerCase()] ?? ''
-    }`;
+    const TITLE =
+        customLabel ||
+        `Создание ${TRANSLATES[resource ?? ''][EWindowType.CREATE.toString().toLowerCase()] ?? ''}`;
 
     const { mutateAsync } = useCreate({ resource: resource! });
 

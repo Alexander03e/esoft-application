@@ -17,6 +17,7 @@ interface IProps {
     create?: boolean;
     children?: ReactNode;
     search?: boolean;
+    customCreate?: ReactNode;
     filters?: Record<string, IFilter[]>;
     onDataLoad?: (data: [] | undefined) => void;
 }
@@ -28,6 +29,7 @@ export const List = ({
     filters,
     search,
     onDataLoad,
+    customCreate,
 }: IProps): ReactElement => {
     const { resource } = useAppStore();
     const [searchValue, setSearchValue] = useState('');
@@ -68,7 +70,7 @@ export const List = ({
             ) : (
                 <Toolbar name={resource ? TRANSLATES?.[resource].index : ''}>
                     {search && <SearchInput onSearched={setSearchValue} />}
-                    {create && <CreateButton />}
+                    {customCreate ?? (create && <CreateButton />)}
                 </Toolbar>
             )}
             <Toolbar

@@ -2,9 +2,14 @@ import { List } from '@/Components/List';
 import { IEstate } from './types';
 import { EstateCard } from './components/Card';
 import { useState } from 'react';
+import { DropList } from '@/Components/DropMenu';
+import { CreateButtons } from './components/CreateButtons';
 
 export const EstateMain = () => {
     const [data, setData] = useState<IEstate[] | undefined>([]);
+
+    const elements = CreateButtons();
+
     return (
         <List
             filters={{
@@ -16,7 +21,7 @@ export const EstateMain = () => {
             }}
             onDataLoad={data => setData(data)}
             search
-            create
+            customCreate={<DropList label='Создать' elements={elements} />}
         >
             {data && data.map(item => <EstateCard {...item} />)}
         </List>
