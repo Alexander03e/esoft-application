@@ -8,12 +8,13 @@ interface IProps {
     onClick?: () => void;
     withKey?: boolean;
     resourceId?: number;
+    withResourceId?: boolean
 }
 
-export const DeleteButton = ({ id, resourceId }: IProps) => {
+export const DeleteButton = ({ id, resourceId, withResourceId }: IProps) => {
     const { resource } = useAppStore();
 
-    const { mutateAsync } = useDelete({ resource: resource!, id, resourceId: String(resourceId) });
+    const { mutateAsync } = useDelete({ resource: resource!, id, resourceId: withResourceId ? String(resourceId) : undefined });
     return (
         <Button
             fullWidth

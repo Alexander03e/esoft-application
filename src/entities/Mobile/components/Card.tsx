@@ -43,7 +43,7 @@ export const EventCard = ({ event }: { event: IEvent }) => {
             </CardContent>
             <CardActions sx={{ justifyContent: 'space-between' }}>
                 {/* <EditButton onClick={handleEditClick} id={id} /> */}
-                <DeleteButton id={id} resourceId={Number(realtorId)} />
+                <DeleteButton id={id} resourceId={Number(realtorId)} withResourceId />
             </CardActions>
         </Card>
     );
