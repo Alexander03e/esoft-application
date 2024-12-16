@@ -4,7 +4,6 @@ export const Inputs: IInput<unknown>[] = [
     {
         name: "comment",
         placeholder: "Комментарий",
-        required: true
     },
     {
         name: "typesOfIvent",
