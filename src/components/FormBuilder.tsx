@@ -2,7 +2,16 @@
 import { useMedia } from '@/Shared/hooks/useBreakpoints';
 import { useForm } from '@/Shared/hooks/useForm';
 import { EValidationStatus, IForm, IInput } from '@/Shared/types/form';
-import { Box, Button, MenuItem, Select, Snackbar, TextField, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    InputLabel,
+    MenuItem,
+    Select,
+    Snackbar,
+    TextField,
+    Typography,
+} from '@mui/material';
 import { red } from '@mui/material/colors';
 import { FormEvent, useEffect, useState } from 'react';
 
@@ -127,23 +136,29 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
 
                     if (input.type === 'select' && input?.selects) {
                         return (
-                            <Select
-                                {...register(input.name as string)}
-                                label={input.placeholder ?? ''}
-                                defaultValue={input.selects[0]}
-                                color='info'
-                            >
-                                {input.selects.map((option, index) => {
-                                    const formattedOption = input?.translateOptions
-                                        ? input.translateOptions[index]
-                                        : option;
-                                    return (
-                                        <MenuItem key={option} value={option}>
-                                            {formattedOption}
-                                        </MenuItem>
-                                    );
-                                })}
-                            </Select>
+                            <Box display='flex' flexDirection='column'>
+                                {input?.placeholder && (
+                                    <InputLabel>{input?.placeholder}</InputLabel>
+                                )}
+                                <Select
+                                    {...register(input.name as string)}
+                                    label={input.placeholder ?? ''}
+                                    defaultValue={input.selects[0]}
+                                    color='info'
+                                    required={input.required}
+                                >
+                                    {input.selects.map((option, index) => {
+                                        const formattedOption = input?.translateOptions
+                                            ? input.translateOptions[index]
+                                            : option;
+                                        return (
+                                            <MenuItem key={option} value={option}>
+                                                {formattedOption}
+                                            </MenuItem>
+                                        );
+                                    })}
+                                </Select>
+                            </Box>
                         );
                     }
                     return (

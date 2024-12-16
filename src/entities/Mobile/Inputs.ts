@@ -10,11 +10,12 @@ export const Inputs: IInput<unknown>[] = [
         type: "select",
         selects: ['MeetingWithTheClient', 'ShowingAnObject', 'ScheduledCall'],
         translateOptions: ['Встреча с клиентом', 'Показ', 'Запланированный звонок'],
-        required: true
+        required: true,
+        placeholder: "Тип события*"
     },
     {
         name: "dateTime",
-        placeholder: "Время",
+        placeholder: "Время*",
         type: "datetime-local",
         required: true
     }

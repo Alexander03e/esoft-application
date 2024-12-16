@@ -1,7 +1,7 @@
 import { List } from '@/Components/List';
 import { Toolbar } from '@/Components/Toolbar';
 import { Add } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IEvent } from './types';
@@ -9,10 +9,22 @@ import { useMobileStore } from '@/Store/mobileSlice';
 import map from 'lodash/map';
 import { EventCard } from './components/Card';
 
+const sortEvents = (events: IEvent[] | undefined) => {
+    if (!events) return [];
+    const today = new Date().toISOString().split('T')[0];
+    const todayEvents = events.filter(event => event.dateTime.split('T')[0] === today);
+    const otherEvents = events.filter(event => event.dateTime.split('T')[0] !== today);
+    return { todayEvents, otherEvents };
+};
+
 export const Main = () => {
     const navigate = useNavigate();
     const { realtorId } = useMobileStore();
     const [data, setData] = useState<IEvent[] | undefined>(undefined);
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { todayEvents, otherEvents } = sortEvents(data);
 
     return (
         <List
@@ -31,7 +43,24 @@ export const Main = () => {
                 </Toolbar>
             }
         >
-            {map(data, item => (
+            <Box mb={2}>
+                <Typography>События на сегодня:</Typography>
+            </Box>
+
+            {todayEvents?.length ? (
+                map(todayEvents, item => {
+                    return <EventCard event={item} />;
+                })
+            ) : (
+                <Typography sx={{ m: 4, textAlign: 'center' }}>На сегодня событий нет</Typography>
+            )}
+
+            {otherEvents?.length && (
+                <Box mb={2}>
+                    <Typography>Остальные события:</Typography>
+                </Box>
+            )}
+            {map(otherEvents, item => (
                 <EventCard event={item} />
             ))}
         </List>
