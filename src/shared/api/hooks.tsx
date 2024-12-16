@@ -13,6 +13,8 @@ interface IProps {
     id?: number;
     search?: string;
     filters?: Record<string, string>;
+    withKey?: boolean;
+    resourceId?: string;
 }
 
 export function useData<T>({ resource, id, search, filters }: IProps): UseQueryResult<T> {
@@ -72,14 +74,16 @@ export function useEdit<T>({ resource, id }: IProps): UseMutationResult<T> {
     });
 }
 
-export function useDelete<T>({ resource, id }: IProps): UseMutationResult<T> {
+export function useDelete<T>({ resource, id, resourceId }: IProps): UseMutationResult<T> {
+    const queryKey = resourceId ? [resource, '52'] : [resource];
+
     const queryClient = useQueryClient();
     return useMutation({
-        mutationKey: [resource],
+        mutationKey: queryKey,
         mutationFn: () => fetcher({ resource, method: 'DELETE', id }),
         onSuccess: () => {
             console.log('success');
-            queryClient.setQueryData<T[]>([resource], oldData => {
+            queryClient.setQueryData<T[]>(queryKey, oldData => {
                 if (!oldData) return [];
                 console.log(oldData);
                 // @ts-ignore

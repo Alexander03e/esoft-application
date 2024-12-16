@@ -4,11 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     id: number;
+    onClick?: () => void;
 }
 
-export const EditButton = ({ id }: IProps) => {
+export const EditButton = ({ id, onClick }: IProps) => {
     const navigate = useNavigate();
     const navigateCreate = () => {
+        if (onClick) {
+            onClick();
+        }
         navigate(`edit/${id}`);
     };
     return (

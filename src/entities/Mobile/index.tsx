@@ -6,7 +6,6 @@ import { ENTITIES } from '@/Shared/consts';
 import { Route, Routes } from 'react-router-dom';
 import { CreateEvent } from './Create';
 import { Main } from './Main';
-import { EventEdit } from './Edit';
 
 export const Mobile = () => {
     const { setResource } = useAppStore();
@@ -20,7 +19,7 @@ export const Mobile = () => {
                 <Routes>
                     <Route path={'/'} element={<Main />} />
                     <Route path={'/create'} element={<CreateEvent />} />
-                    <Route path={'/edit/:id'} element={<EventEdit />} />
+                    {/* <Route path={'/edit/:id'} element={<EventEdit />} /> */}
                 </Routes>
             </Box>
         </Box>

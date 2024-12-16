@@ -50,7 +50,7 @@ export const Edit = ({ inputs, formProps, children, customForm }: IProps) => {
                     handleSend={mutateAsync}
                     inputs={inputs}
                     defaultValues={
-                        (defaultData as Record<string, string>) || formProps?.defaultValues
+                        formProps?.defaultValues || (defaultData as Record<string, string>)
                     }
                     {...formProps}
                 />

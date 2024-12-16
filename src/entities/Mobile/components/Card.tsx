@@ -3,14 +3,20 @@ import EventIcon from '@mui/icons-material/Event';
 import CommentIcon from '@mui/icons-material/Comment';
 import CategoryIcon from '@mui/icons-material/Category';
 import { IEvent } from '../types';
-import { EditButton } from '@/Components/buttons/EditButton';
 import { DeleteButton } from '@/Components/buttons/DeleteButton';
 import dayjs from 'dayjs';
 import { EVENT_TYPES } from '../consts';
+import { useMobileStore } from '@/Store/mobileSlice';
 
 export const EventCard = ({ event }: { event: IEvent }) => {
     const { id } = event;
     const formattedDate = dayjs(event.dateTime).format('DD.MM.YYYY, HH:mm');
+    const { realtorId } = useMobileStore();
+    // const { setEditData } = useEditStore();
+
+    // const handleEditClick = () => {
+    //     setEditData(event as unknown);
+    // };
 
     return (
         <Card variant='outlined' sx={{ maxWidth: '100%', mb: '16px', boxShadow: 2 }}>
@@ -36,8 +42,8 @@ export const EventCard = ({ event }: { event: IEvent }) => {
                 </Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: 'space-between' }}>
-                <EditButton id={id} />
-                <DeleteButton id={id} />
+                {/* <EditButton onClick={handleEditClick} id={id} /> */}
+                <DeleteButton id={id} resourceId={Number(realtorId)} />
             </CardActions>
         </Card>
     );

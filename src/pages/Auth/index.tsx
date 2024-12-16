@@ -36,6 +36,11 @@ export const AuthPage = () => {
                 return;
             }
         }
+        if (!isDesktop && !id) {
+            setError(true);
+
+            return;
+        }
         navigate(PATHS.REALTOR.MAIN.ABSOLUTE);
         setRole('REALTOR');
     };
@@ -59,6 +64,7 @@ export const AuthPage = () => {
                 flexDirection='column'
                 alignItems={'center'}
                 gap='20px'
+                maxWidth='400px'
                 sx={{
                     border: '1px solid white',
                     padding: 2,
@@ -74,7 +80,7 @@ export const AuthPage = () => {
             >
                 <Logo />
 
-                {error && <Typography sx={{ color: 'white' }}>Введите ID риелтора</Typography>}
+                {error && <Typography sx={{ color: 'white' }}>Введите корректное ID</Typography>}
                 {!isDesktop && (
                     <TextField
                         variant='outlined'
