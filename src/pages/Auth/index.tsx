@@ -18,6 +18,7 @@ export const AuthPage = () => {
     const [error, setError] = useState(false);
 
     const navigateRealtor = async () => {
+        
         if (!isDesktop && id) {
             try {
                 const agent = (await axios.get(`http://85.192.49.26:8888/agent/${id}`)).data;

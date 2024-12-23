@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Box } from '@mui/material';
+import { Box, Grid2 as Grid } from '@mui/material';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Toolbar } from './Toolbar';
 import { CreateButton } from './buttons/CreateButton';
@@ -11,6 +11,7 @@ import { useData } from '@/Shared/api/hooks';
 import { SearchInput } from '@/Shared/components/ui/SearchInput';
 import { DropFilter } from './DropFilter';
 import { IFilter } from '@/Shared/types/form';
+import map from 'lodash/map';
 
 interface IProps {
     toolbarComponent?: ReactNode;
@@ -21,18 +22,24 @@ interface IProps {
     listId?: string;
     filters?: Record<string, IFilter[]>;
     onDataLoad?: (data: [] | undefined) => void;
+    columns?: number
+    // @ts-ignore
+    /* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-explicit-any */
+    renderItem?:(data: any) => ReactElement;
 }
 
 export const List = ({
-    toolbarComponent,
-    create = true,
-    children,
-    filters,
-    search,
-    listId,
-    onDataLoad,
-    customCreate,
-}: IProps): ReactElement => {
+                         toolbarComponent,
+                         create = true,
+                         children,
+                         filters,
+                         search,
+                         listId,
+                         onDataLoad,
+                         columns,
+                         customCreate,
+                         renderItem,
+                     }: IProps): ReactElement => {
     const { resource } = useAppStore();
     const [searchValue, setSearchValue] = useState('');
     const [currentFilters, setCurrentFilters] = useState<Record<string, IFilter>>({});
@@ -65,9 +72,11 @@ export const List = ({
                 return 'Выберите значение';
         }
     };
+    const Item = renderItem;
+    const arrayData = data as unknown[];
 
     return (
-        <Box position='relative' height='100%' display='flex' flexDirection='column'>
+        <Box position="relative" height="100%" display="flex" flexDirection="column">
             {toolbarComponent ? (
                 toolbarComponent
             ) : (
@@ -78,7 +87,7 @@ export const List = ({
             )}
             {filters && (
                 <Toolbar
-                    closeTitle='Закрыть фильтры'
+                    closeTitle="Закрыть фильтры"
                     open={filtersOpen}
                     onToggle={() => setFiltersOpen(prev => !prev)}
                     openTitle={filters ? 'Открыть фильтры' : ''}
@@ -115,6 +124,23 @@ export const List = ({
                 </Toolbar>
             )}
             <Box sx={{ height: '100%' }} mt={4}>
+                {renderItem && Item && arrayData?.length &&
+                    <Grid container  gap={2}>
+                        {map(arrayData, (item, index) => <Grid
+                            sx={{
+                                xs: 12,
+                                sm: 6,
+                                md: 3.88,
+                                lg: 3.4,
+                                // maxWidth: '32.3%',
+                                flex: '1 1 auto',
+                            }}
+                            key={index}
+                                // @ts-ignore
+                        ><Item {...item} /></Grid>
+                        )}
+                    </Grid>
+                }
                 {isLoading ? <Loader /> : isEmpty ? <Empty /> : children}
             </Box>
         </Box>

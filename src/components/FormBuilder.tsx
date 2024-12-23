@@ -50,7 +50,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [formInputs, setFormInputs] = useState(inputs);
     const { isDesktop } = useMedia();
-    console.log(formInputs);
+
     useEffect(() => {
         if (dynamicInputs) {
             dynamicInputs(formData as T, setFormInputs);
@@ -120,19 +120,9 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                 gap={4}
             >
                 {formInputs?.map(input => {
-                    let label = input?.placeholder;
-                    if (input?.min) label += ` (от ${input.min}`;
-                    if (input?.max) label += ` до ${input.max})`;
-
-                    // let disabled = false
-                    // if (input.activeIf && formData[input.name as string]) {
-                    //     const active = input.activeIf.some(
-                    //         activeInput =>
-                    //             formData[activeInput.name as string] === activeInput.value,
-                    //     );
-
-                    //     if (!active)
-                    // }
+                    let label = '';
+                    if (input?.min) label += `от ${input.min}`;
+                    if (input?.max) label += ` до ${input.max}`;
 
                     if (input.type === 'select' && input?.selects) {
                         return (
@@ -176,7 +166,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                                 input: { inputProps: { min: input.min, max: input.max } },
                             }}
                             required={input.required}
-                            label={label ?? ''}
+                            label={`${input?.placeholder} ${label ? `(${label})` : ''}`}
                             type={input?.type || 'text'}
                             onInput={e => {
                                 // @ts-ignore

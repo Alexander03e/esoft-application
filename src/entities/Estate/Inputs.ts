@@ -265,6 +265,12 @@ export const flatInputs: IInput<unknown>[] = [
         required: false,
     },
     {
+        name: "countOfRooms",
+        placeholder: "Количество комнат",
+        type: "number",
+        required: false,
+    },
+    {
         name: "floor",
         placeholder: "Этаж",
         required: false,

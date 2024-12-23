@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, Grid2 as Grid } from '@mui/material';
+import { Card, CardContent, Typography, Grid2 as Grid, CardActions } from '@mui/material';
 import {
     LocationCity,
     Home,
@@ -7,11 +7,20 @@ import {
     SquareFoot,
     MeetingRoom,
     Layers,
-    Business,
+    Business, Person,
 } from '@mui/icons-material';
 import { IRequirement } from '../types';
+import { DeleteButton } from '@/Components/buttons/DeleteButton.tsx';
+import { EditButton } from '@/Components/buttons/EditButton.tsx';
+import { IClient } from '../../Clients/types.ts';
+import { IAgent } from '../../Agents/types.ts';
 
-export const RequirementCard: React.FC<IRequirement> = ({
+type Props = Omit<IRequirement, 'client' | "agent"> & {
+    client: IClient
+    agent: IAgent
+}
+
+export const RequirementCard: React.FC<Props> = ({
     id,
     type,
     city,
@@ -20,6 +29,8 @@ export const RequirementCard: React.FC<IRequirement> = ({
     flatNumber,
     minPrice,
     maxPrice,
+    client,
+    agent,
     minArea,
     maxArea,
     minCountOfRooms,
@@ -30,6 +41,7 @@ export const RequirementCard: React.FC<IRequirement> = ({
     maxCountOfFloors,
     transaction,
 }) => {
+    // Карточка предложений
     return (
         <Card sx={{ margin: 'auto', mt: 2 }}>
             <CardContent>
@@ -38,12 +50,12 @@ export const RequirementCard: React.FC<IRequirement> = ({
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid size={{ xs: 6 }}>
-                        {/* <Typography variant='body1'>
-                            <Person /> Клиент: {client}
+                         <Typography variant='body1'>
+                            <Person /> Клиент: {client?.firstname}
                         </Typography>
                         <Typography variant='body1'>
-                            <Business /> Агент: {agent}
-                        </Typography> */}
+                            <Business /> Агент: {agent?.firstname}
+                        </Typography>
                         <Typography variant='body1'>
                             <Home /> Тип:{' '}
                             {type === 'FLAT' ? 'Квартира' : type === 'HOUSE' ? 'Дом' : 'Участок'}
@@ -82,7 +94,12 @@ export const RequirementCard: React.FC<IRequirement> = ({
                         </Typography>
                     </Grid>
                 </Grid>
+
             </CardContent>
+            <CardActions>
+                <DeleteButton id={id} />
+                <EditButton id={id} />
+            </CardActions>
         </Card>
     );
 };

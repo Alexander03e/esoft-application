@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+ 
 import { IInput } from '@/Shared/types/form';
 import { FormBuilder } from './FormBuilder';
 import { Box, Button, Typography } from '@mui/material';
@@ -28,9 +28,11 @@ export const Edit = ({ inputs, formProps, children, customForm }: IProps) => {
         navigate(-1);
     };
 
+    // Форматированный тайтл редактирования
     const TITLE = `Редактирование ${
         TRANSLATES[resource ?? ''][EWindowType.EDIT.toString().toLowerCase()] ?? ''
     }`;
+    
     return (
         <Box display='flex' flexDirection='column' gap='14px'>
             <Box display='flex' alignItems={'center'} gap={2} mb={4}>

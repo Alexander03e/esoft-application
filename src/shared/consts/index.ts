@@ -20,6 +20,13 @@ export const PATHS = {
             UPDATE: "/realtor/mobile/update/:id"
         },
 
+        SUGGESTION: {
+            INDEX: "/suggestion",
+            ABSOLUTE: "/realtor/suggestion",
+            CREATE: "/realtor/suggestion/create",
+            UPDATE: "/realtor/suggestion/update/:id"
+        },
+
         CLIENTS: {
             INDEX: '/clients',
             ABSOLUTE: '/realtor/client',
@@ -55,7 +62,8 @@ export const ENTITIES = {
     ESTATE: 'estate',
     AGENT: 'agent',
     REQUIREMENT: 'requirement',
-    EVENT: "event"
+    EVENT: "event",
+    SUGGESTION: "suggestion"
 };
 
 type TRoleWithoutNull = Exclude<TRole, null>;
@@ -70,6 +78,7 @@ export const USER_MENU: Record<TRoleWithoutNull, Record<string, string>> = {
         [PATHS.REALTOR.CLIENTS.ABSOLUTE]: 'Клиенты',
         [PATHS.REALTOR.ESTATE.ABSOLUTE]: 'Недвижимость',
         [PATHS.REALTOR.REQUIREMENT.ABSOLUTE]: 'Потребности',
+        [PATHS.REALTOR.SUGGESTION.ABSOLUTE]: "Предложения"
     },
 };
 
@@ -96,7 +105,7 @@ export const TRANSLATES: Record<string, Record<string, string>> = {
     [ENTITIES.REQUIREMENT]: {
         index: "Потребности",
         show: "потребность",
-        create: "потребность",
+        create: "потребности",
         edit: "потребности"
     },
     [ENTITIES.EVENT]: {
@@ -104,6 +113,12 @@ export const TRANSLATES: Record<string, Record<string, string>> = {
         show: "событие",
         create: "события",
         edit: "событие"
+    },
+    [ENTITIES.SUGGESTION]: {
+        index: "Предложения",
+        show: "предложение",
+        create: "предложение",
+        edit: "предложение"
     }
 }
 
