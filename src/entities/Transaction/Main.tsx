@@ -17,7 +17,6 @@ export const TransactionMain = () => {
             toolbarElements={<DropList label={'Поиск'} elements={dropListElements} />}
             renderItem={data => <TransactionCard {...data} />}
             create
-            search
         />
     );
 };
