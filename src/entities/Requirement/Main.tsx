@@ -6,13 +6,13 @@ import { CreateButtons } from './components/CreateButton.tsx';
 
 export const RequirementMain = () => {
 
-    const elements = CreateButtons()
+    const elements = CreateButtons();
 
     return (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        <List renderItem={(item: IRequirement) => <RequirementCard {...item} />}
-              customCreate={<DropList label='Создать' elements={elements} />}
+        <List renderItem={(item: IRequirement) => <RequirementCard key={item?.id} {...item} />}
+              customCreate={<DropList label="Создать" elements={elements} />}
               create search />
     );
 };

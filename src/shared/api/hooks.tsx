@@ -17,16 +17,30 @@ interface IProps {
     resourceId?: string;
 }
 
-export function useData<T>({ resource, id, search, filters }: IProps): UseQueryResult<T> {
-    const queryKey = [resource];
+interface IDataProps extends IProps {
+    additionalUrl?: string;
+}
 
+export function useData<T>({
+    resource,
+    id,
+    search,
+    filters,
+    additionalUrl,
+}: IDataProps): UseQueryResult<T> {
+    const queryKey = [resource];
+    const paramsSplitted = additionalUrl?.split('/') || null;
     if (id) queryKey.push(String(id));
     if (search) queryKey.push(search);
 
+    if (paramsSplitted) {
+        queryKey.push(...paramsSplitted);
+    }
+
     return useQuery({
         queryKey: queryKey,
-        queryFn: () => fetcher({ resource, id: id, method: 'GET', search }),
-        enabled: !!resource,
+        queryFn: () => fetcher({ resource, id: id, method: 'GET', search, additionalUrl }),
+        enabled: !!resource && queryKey.every(item => item !== 'undefined'),
         select: (data: T) => {
             if (!filters) return data;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

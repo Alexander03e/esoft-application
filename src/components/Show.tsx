@@ -20,7 +20,7 @@ export const Show = ({ children, render, resource, id }: IProps): ReactElement =
         navigate(-1);
     };
 
-    const TITLE = `Показать ${
+    const TITLE = `Детали ${
         TRANSLATES[resource ?? ''][EWindowType.SHOW.toString().toLowerCase()] ?? ''
     }`;
 
@@ -29,22 +29,24 @@ export const Show = ({ children, render, resource, id }: IProps): ReactElement =
     const Item = render;
 
     return (
-        <Container sx={{
-            margin: '0!important',
-            padding: '0!important',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '24px',
-        }}>
-            <Box display="flex" alignItems={'center'} gap={2} mb={4}>
+        <Container
+            sx={{
+                margin: '0!important',
+                padding: '0!important',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '24px',
+            }}
+        >
+            <Box display='flex' alignItems={'center'} gap={2} mb={4}>
                 <Button
                     onClick={onBack}
                     sx={{ span: { margin: '0' } }}
                     startIcon={<KeyboardBackspace />}
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                 />
-                <Typography variant="h1" fontWeight={600}>
+                <Typography variant='h1' fontWeight={600}>
                     {TITLE}
                 </Typography>
             </Box>
@@ -52,7 +54,6 @@ export const Show = ({ children, render, resource, id }: IProps): ReactElement =
                 <CardContent>
                     <Item {...data} />
                     {children}
-
                 </CardContent>
             </Card>
         </Container>

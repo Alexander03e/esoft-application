@@ -1,7 +1,8 @@
 import { Show } from '@/Components/Show.tsx';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { IRequirementResponse } from './types.ts';
 import { Box, Typography } from '@mui/material';
+import { PATHS } from '@/Shared/consts';
 
 export const ShowRequirement = () => {
     const { id } = useParams();
@@ -13,8 +14,10 @@ export const ShowRequirement = () => {
                     Потребность {id}
                 </Typography>
                 <Typography variant="body1">ID: {data?.id}</Typography>
-                <Typography variant="body1">Клиент: {data?.client?.firstname}</Typography>
-                <Typography variant="body1">Агент: {data?.agent?.firstname}</Typography>
+                <Typography variant="body1">Клиент: <NavLink
+                    to={`${PATHS.REALTOR.CLIENTS.ABSOLUTE}/${data?.client?.id}`}>{data?.client?.firstname}</NavLink></Typography>
+                <Typography variant="body1">Агент: <NavLink
+                    to={`${PATHS.REALTOR.AGENTS.ABSOLUTE}/${data?.agent?.id}`}>{data?.agent?.firstname}</NavLink></Typography>
                 <Typography variant="body1">Тип: {data?.type}</Typography>
                 <Typography variant="body1">Город: {data?.city}</Typography>
                 <Typography variant="body1">Улица: {data?.street}</Typography>

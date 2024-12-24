@@ -18,7 +18,7 @@ import { AsyncSelect } from '@/Components/AsyncSelect.tsx';
 
 type Props<T> = IForm<T> & {
     defaultValues?: Partial<T>;
-    handleSend?: (data: T) => void;
+    handleSend?: (data: T) => Promise<void>;
     submitButton?: {
         label: string;
     };
@@ -58,7 +58,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
         }
     }, [formData]);
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         try {
@@ -88,23 +88,27 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
             setError('');
 
             if (handleSend) {
-                console.log(filteredFormData, 'FILTERED');
-                console.log(formData, 'FORM');
-                handleSend(filteredFormData as T);
+
+                const res = await handleSend(filteredFormData as T);
+
+                // @ts-ignore
+                if (res?.status === 500 || !res) {
+                    throw new Error;
+                }
                 setOpenSnackbar(true);
                 if (resetOnFinish) {
                     resetForm();
                 }
             }
         } catch {
-            setError('Произошла ошибка при отправке данных.');
+            setError('Данные не валидны.');
         }
     };
 
     return (
         <Box onSubmit={handleSubmit} component="form" display="flex" gap={4} flexDirection="column">
             <Box
-                alignItems={'flex-end'}
+                alignItems={'center'}
                 display="grid"
                 width="100%"
                 flexDirection="column"

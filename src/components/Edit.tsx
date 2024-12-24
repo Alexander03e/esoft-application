@@ -59,7 +59,7 @@ export const Edit = ({ inputs, formProps, children, customForm, onDefaultDataLoa
             </Box>
             {!customForm ? (
                 <FormBuilder
-                    handleSend={mutateAsync}
+                    handleSend={mutateAsync as any}
                     inputs={inputs}
                     defaultValues={
                         defaultProps}

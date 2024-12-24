@@ -1,15 +1,17 @@
 import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import { Box, Button, SxProps, Typography } from '@mui/material';
 import { ReactElement, ReactNode } from 'react';
+
 interface IProps {
     name?: string;
-    children: ReactNode;
+    children?: ReactNode;
     sx?: SxProps;
     open?: boolean;
     openTitle?: string;
     closeTitle?: string;
     onToggle?: () => void;
 }
+
 export const Toolbar = ({
     children,
     open = true,

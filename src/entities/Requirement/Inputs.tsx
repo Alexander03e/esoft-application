@@ -1,5 +1,6 @@
 import { IInput } from '@/Shared/types/form.ts';
 import { RequirementCard } from './components/Card.tsx';
+import { PATHS } from '@/Shared/consts';
 
 // Инпуты, которые есть в формах предложений
 export const Inputs: IInput<unknown>[] = [
@@ -11,14 +12,10 @@ export const Inputs: IInput<unknown>[] = [
             label: 'firstname',
             source: 'client',
             key: 'id',
+            path: PATHS.REALTOR.CLIENTS.ABSOLUTE,
+            hintLabel: 'Посмотреть клиента',
         },
         show: [
-            // {
-            //     source: 'client/suggestions',
-            //     id: true,
-            //     name: 'Показать предложения',
-            //     renderItem: (data: any) => <RequirementCard {...data} />,
-            // },
             {
                 source: 'client/requirements',
                 id: true,
@@ -35,6 +32,8 @@ export const Inputs: IInput<unknown>[] = [
             label: 'firstname',
             source: 'agent',
             key: 'id',
+            path: PATHS.REALTOR.AGENTS.ABSOLUTE,
+            hintLabel: 'Посмотреть риелтора',
         },
         type: 'select',
         placeholder: 'Риелтор',
@@ -168,6 +167,8 @@ export const HomeInputs: IInput<unknown>[] = [
             label: 'firstname',
             source: 'client',
             key: 'id',
+            path: PATHS.REALTOR.CLIENTS.ABSOLUTE,
+            hintLabel: 'Посмотреть клиента',
         },
         type: 'select',
     },
@@ -178,6 +179,8 @@ export const HomeInputs: IInput<unknown>[] = [
             label: 'firstname',
             source: 'agent',
             key: 'id',
+            path: PATHS.REALTOR.AGENTS.ABSOLUTE,
+            hintLabel: 'Посмотреть риелтора',
         },
         type: 'select',
         placeholder: 'Риелтор',
@@ -249,6 +252,8 @@ export const FlatInputs: IInput<unknown>[] = [
             label: 'firstname',
             source: 'client',
             key: 'id',
+            path: PATHS.REALTOR.CLIENTS.ABSOLUTE,
+            hintLabel: 'Посмотреть клиента',
         },
         type: 'select',
     },
@@ -259,6 +264,8 @@ export const FlatInputs: IInput<unknown>[] = [
             label: 'firstname',
             source: 'agent',
             key: 'id',
+            path: PATHS.REALTOR.AGENTS.ABSOLUTE,
+            hintLabel: 'Посмотреть риелтора',
         },
         type: 'select',
         placeholder: 'Риелтор',
@@ -330,6 +337,8 @@ export const AreaInputs: IInput<unknown>[] = [
             label: 'firstname',
             source: 'client',
             key: 'id',
+            path: PATHS.REALTOR.CLIENTS.ABSOLUTE,
+            hintLabel: 'Посмотреть клиента',
         },
         type: 'select',
     },
@@ -340,6 +349,8 @@ export const AreaInputs: IInput<unknown>[] = [
             label: 'firstname',
             source: 'agent',
             key: 'id',
+            path: PATHS.REALTOR.AGENTS.ABSOLUTE,
+            hintLabel: 'Посмотреть риелтора',
         },
         type: 'select',
         placeholder: 'Риелтор',

@@ -1,8 +1,9 @@
+import { Create } from '@/Components/Create.tsx';
+import { Inputs } from './Inputs.tsx';
+
 export const TransactionCreate = () => {
 
     return (
-        <div>
-            create
-        </div>
+        <Create inputs={Inputs} />
     );
 };

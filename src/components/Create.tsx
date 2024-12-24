@@ -8,6 +8,7 @@ import { TRANSLATES } from '@/Shared/consts';
 import { useCreate } from '@/Shared/api/hooks';
 import { FormBuilder } from './FormBuilder';
 import { IInput } from '@/Shared/types/form';
+import { useCreateStore } from '@/Store/createSlice';
 
 interface IProps {
     inputs: IInput<unknown>[];
@@ -20,6 +21,8 @@ interface IProps {
 export const Create = ({ children, inputs, customLabel, customForm, formProps }: IProps) => {
     const navigate = useNavigate();
     const { setContent, resource } = useAppStore();
+    const { options } = useCreateStore();
+    const { defaultValues: formPropsDefaultValues, ...formRestProps } = formProps || {};
 
     useEffect(() => {
         setContent({ name: '', action: EWindowType.CREATE });
@@ -35,26 +38,29 @@ export const Create = ({ children, inputs, customLabel, customForm, formProps }:
 
     const { mutateAsync } = useCreate({ resource: resource! });
 
+    const defaultValues = formPropsDefaultValues || options?.defaultValues;
+
     return (
-        <Box display='flex' flexDirection='column' gap='14px'>
-            <Box display='flex' alignItems={'center'} gap={2} mb={4}>
+        <Box display="flex" flexDirection="column" gap="14px">
+            <Box display="flex" alignItems={'center'} gap={2} mb={4}>
                 <Button
                     onClick={onBack}
                     sx={{ span: { margin: '0' } }}
                     startIcon={<KeyboardBackspace />}
-                    variant='contained'
-                    color='primary'
+                    variant="contained"
+                    color="primary"
                 />
-                <Typography variant='h1' fontWeight={600}>
+                <Typography variant="h1" fontWeight={600}>
                     {TITLE}
                 </Typography>
             </Box>
             {!customForm ? (
                 <FormBuilder
                     resetOnFinish
-                    handleSend={mutateAsync}
+                    handleSend={mutateAsync as any}
                     inputs={inputs}
-                    {...formProps}
+                    defaultValues={defaultValues}
+                    {...formRestProps}
                 />
             ) : (
                 customForm

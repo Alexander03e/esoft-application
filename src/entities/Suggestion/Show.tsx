@@ -1,6 +1,7 @@
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { Box, CardContent, Typography } from '@mui/material';
 import { Show } from '@/Components/Show.tsx';
+import { PATHS } from '@/Shared/consts';
 
 export const ShowSuggestion = () => {
     const { id } = useParams();
@@ -16,8 +17,19 @@ export const ShowSuggestion = () => {
                     <Box>
                         <Typography variant="body1">ID: {data?.id}</Typography>
                         <Typography variant="body1">Недвижимость: {data?.estate?.id}</Typography>
-                        <Typography variant="body1">Клиент: {data?.client?.firstname}</Typography>
-                        <Typography variant="body1">Риелтор: {data?.agent?.firstname}</Typography>
+                        <Typography variant="body1">
+                            Клиент:
+                            <NavLink
+                                to={`${PATHS.REALTOR.CLIENTS.ABSOLUTE}/${data?.client?.id}`}>
+                                {data?.client?.firstname}
+                            </NavLink>
+                        </Typography>
+                        <Typography variant="body1">Риелтор:
+                            <NavLink
+                                to={`${PATHS.REALTOR.AGENTS.ABSOLUTE}/${data?.agent?.id}`}>
+                                {data?.agent?.firstname}
+                            </NavLink>
+                        </Typography>
                         <Typography variant="body1">Цена: ${data?.price}</Typography>
                         {data.transaction && (
                             <Typography variant="body1">Транзакция: {data?.transaction}</Typography>

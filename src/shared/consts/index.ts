@@ -90,7 +90,6 @@ export const USER_MENU: Record<TRoleWithoutNull, Record<string, string>> = {
     },
 };
 
-
 export const TRANSLATES: Record<string, Record<string, string>> = {
     [ENTITIES.CLIENT]: {
         index: 'Клиенты',
@@ -106,25 +105,25 @@ export const TRANSLATES: Record<string, Record<string, string>> = {
     },
     [ENTITIES.ESTATE]: {
         index: 'Недвижимость',
-        show: 'недвижимость',
+        show: 'недвижимости',
         create: 'недвижимость',
         edit: 'недвижимости',
     },
     [ENTITIES.REQUIREMENT]: {
         index: 'Потребности',
-        show: 'потребность',
+        show: 'потребности',
         create: 'потребности',
         edit: 'потребности',
     },
     [ENTITIES.EVENT]: {
         index: 'Событие',
-        show: 'событие',
+        show: 'события',
         create: 'события',
         edit: 'событие',
     },
     [ENTITIES.SUGGESTION]: {
         index: 'Предложения',
-        show: 'предложение',
+        show: 'предложения',
         create: 'предложение',
         edit: 'предложение',
     },
@@ -135,7 +134,6 @@ export const TRANSLATES: Record<string, Record<string, string>> = {
         edit: 'сделки',
     },
 };
-
 
 export const ESTATE_TYPES = {
     FLAT: 'Квартира',

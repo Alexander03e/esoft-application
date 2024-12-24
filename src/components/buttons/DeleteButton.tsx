@@ -8,20 +8,24 @@ interface IProps {
     onClick?: () => void;
     withKey?: boolean;
     resourceId?: number;
-    withResourceId?: boolean
+    withResourceId?: boolean;
 }
 
 export const DeleteButton = ({ id, resourceId, withResourceId }: IProps) => {
     const { resource } = useAppStore();
 
-    const { mutateAsync } = useDelete({ resource: resource!, id, resourceId: withResourceId ? String(resourceId) : undefined });
+    const { mutateAsync } = useDelete({
+        resource: resource!,
+        id,
+        resourceId: withResourceId ? String(resourceId) : undefined,
+    });
     return (
         <Button
             fullWidth
-            onClick={mutateAsync}
-            startIcon={<Delete />}
             variant='outlined'
             color='error'
+            onClick={mutateAsync}
+            startIcon={<Delete />}
         >
             Удалить
         </Button>

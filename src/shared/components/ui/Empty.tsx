@@ -1,6 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
 
-export const Empty = () => {
+interface IProps {
+    title?: string;
+}
+
+export const Empty = ({ title }: IProps) => {
     return (
         <Box
             display='flex'
@@ -10,7 +14,7 @@ export const Empty = () => {
             height='100%'
         >
             <Typography variant='body1' mb={2} gutterBottom>
-                Здесь пока ничего нет. Добавьте новые данные или обновите страницу.
+                {title || 'Здесь пока ничего нет. Добавьте новые данные или обновите страницу'}
             </Typography>
             <Button variant='contained' color='primary' onClick={() => window.location.reload()}>
                 Обновить

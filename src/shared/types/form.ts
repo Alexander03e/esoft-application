@@ -29,6 +29,8 @@ export interface IInput<T, K extends boolean = false> {
         source: string;
         key: string;
         label: string
+        path?: string
+        hintLabel?: string
     }
     show?: {
         name: string
