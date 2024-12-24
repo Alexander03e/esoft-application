@@ -4,7 +4,7 @@ import { IEstate } from './types';
 import { IInput } from '@/Shared/types/form';
 
 export const EstateEdit = () => {
-    // Динамический выбор инпутов в зависимости от типа 
+    // Динамический выбор инпутов в зависимости от типа
     const onChangeInputsType = (
         formData: Partial<IEstate>,
         setInputs: (val: IInput<unknown>[]) => void,
@@ -20,5 +20,6 @@ export const EstateEdit = () => {
             );
         }
     };
+
     return <Edit inputs={Inputs} formProps={{ dynamicInputs: onChangeInputsType }} />;
 };

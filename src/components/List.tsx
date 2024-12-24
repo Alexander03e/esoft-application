@@ -22,10 +22,10 @@ interface IProps {
     listId?: string;
     filters?: Record<string, IFilter[]>;
     onDataLoad?: (data: [] | undefined) => void;
-    columns?: number
+    columns?: number;
     // @ts-ignore
     /* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-explicit-any */
-    renderItem?:(data: any) => ReactElement;
+    renderItem?: (data: any) => ReactElement;
 }
 
 export const List = ({
@@ -36,7 +36,6 @@ export const List = ({
                          search,
                          listId,
                          onDataLoad,
-                         columns,
                          customCreate,
                          renderItem,
                      }: IProps): ReactElement => {
@@ -125,19 +124,20 @@ export const List = ({
             )}
             <Box sx={{ height: '100%' }} mt={4}>
                 {renderItem && Item && arrayData?.length &&
-                    <Grid container  gap={2}>
+                    <Grid container gap={2}>
                         {map(arrayData, (item, index) => <Grid
-                            sx={{
-                                xs: 12,
-                                sm: 6,
-                                md: 3.88,
-                                lg: 3.4,
-                                // maxWidth: '32.3%',
-                                flex: '1 1 auto',
-                            }}
-                            key={index}
+                                sx={{
+                                    xs: 12,
+                                    sm: 6,
+                                    md: 3.88,
+                                    lg: 3.4,
+                                    // minWidth: '31.3%',
+                                    // maxWidth: '32.3%',
+                                    flex: '1 1 auto',
+                                }}
+                                key={index}
                                 // @ts-ignore
-                        ><Item {...item} /></Grid>
+                            ><Item {...item} /></Grid>,
                         )}
                     </Grid>
                 }

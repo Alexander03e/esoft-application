@@ -15,81 +15,81 @@ import { EditButton } from '@/Components/buttons/EditButton.tsx';
 import { IClient } from '../../Clients/types.ts';
 import { IAgent } from '../../Agents/types.ts';
 
-type Props = Omit<IRequirement, 'client' | "agent"> & {
+type Props = Omit<IRequirement, 'client' | 'agent'> & {
     client: IClient
     agent: IAgent
 }
 
 export const RequirementCard: React.FC<Props> = ({
-    id,
-    type,
-    city,
-    street,
-    homeNumber,
-    flatNumber,
-    minPrice,
-    maxPrice,
-    client,
-    agent,
-    minArea,
-    maxArea,
-    minCountOfRooms,
-    maxCountOfRooms,
-    minFloor,
-    maxFloor,
-    minCountOfFloors,
-    maxCountOfFloors,
-    transaction,
-}) => {
+                                                     id,
+                                                     type,
+                                                     city,
+                                                     street,
+                                                     homeNumber,
+                                                     flatNumber,
+                                                     minPrice,
+                                                     maxPrice,
+                                                     client,
+                                                     agent,
+                                                     minArea,
+                                                     maxArea,
+                                                     minCountOfRooms,
+                                                     maxCountOfRooms,
+                                                     minFloor,
+                                                     maxFloor,
+                                                     minCountOfFloors,
+                                                     maxCountOfFloors,
+                                                     transaction,
+                                                 }) => {
     // Карточка предложений
     return (
         <Card sx={{ margin: 'auto', mt: 2 }}>
             <CardContent>
-                <Typography variant='h5' component='div' gutterBottom>
+                <Typography variant="h5" component="div" gutterBottom>
                     Потребность №{id}
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid size={{ xs: 6 }}>
-                         <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Person /> Клиент: {client?.firstname}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Business /> Агент: {agent?.firstname}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Home /> Тип:{' '}
                             {type === 'FLAT' ? 'Квартира' : type === 'HOUSE' ? 'Дом' : 'Участок'}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <LocationCity /> Город: {city}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Home /> Улица: {street}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Home /> Номер дома: {homeNumber}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Home /> Номер квартиры: {flatNumber}
                         </Typography>
                     </Grid>
                     <Grid size={{ xs: 6 }}>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <AttachMoney /> Диапазон цен: {minPrice} - {maxPrice}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <SquareFoot /> Диапазон площадей: {minArea} - {maxArea}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <MeetingRoom /> Количество комнат: {minCountOfRooms} - {maxCountOfRooms}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Layers /> Этаж: {minFloor} - {maxFloor}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Layers /> Этажность: {minCountOfFloors} - {maxCountOfFloors}
                         </Typography>
-                        <Typography variant='body1'>
+                        <Typography variant="body1">
                             <Business /> Транзакция: {transaction}
                         </Typography>
                     </Grid>

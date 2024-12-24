@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { FormEvent, useEffect, useState } from 'react';
+import { AsyncSelect } from '@/Components/AsyncSelect.tsx';
 
 type Props<T> = IForm<T> & {
     defaultValues?: Partial<T>;
@@ -35,16 +36,16 @@ type Props<T> = IForm<T> & {
 };
 
 export function FormBuilder<T extends { [K in keyof T]: string }>({
-    inputs,
-    submitButton,
-    defaultValues,
-    handleSend,
-    customOnSubmit,
-    customFields,
-    resetOnFinish,
-    dynamicInputs,
-    specialAreaType,
-}: Props<T>) {
+                                                                      inputs,
+                                                                      submitButton,
+                                                                      defaultValues,
+                                                                      handleSend,
+                                                                      customOnSubmit,
+                                                                      customFields,
+                                                                      resetOnFinish,
+                                                                      dynamicInputs,
+                                                                      specialAreaType,
+                                                                  }: Props<T>) {
     const { register, formData, resetForm } = useForm<Record<string, string>>({ defaultValues });
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -62,16 +63,6 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
 
         try {
             const filteredFormData = formData;
-            // const filteredFormData = Object.keys(formData).reduce((obj, key) => {
-            //     if (key === 'id') return obj;
-            //     if (formInputs.some(input => input.name === key)) {
-            //         obj[key] = formData[key];
-            //     } else {
-            //         obj[key] = ' ';
-            //     }
-
-            //     return obj;
-            // }, {});
 
             if (specialAreaType) {
                 filteredFormData['type'] = specialAreaType;
@@ -111,11 +102,12 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
     };
 
     return (
-        <Box onSubmit={handleSubmit} component='form' display='flex' gap={4} flexDirection='column'>
+        <Box onSubmit={handleSubmit} component="form" display="flex" gap={4} flexDirection="column">
             <Box
-                display='grid'
-                width='100%'
-                flexDirection='column'
+                alignItems={'flex-end'}
+                display="grid"
+                width="100%"
+                flexDirection="column"
                 gridTemplateColumns={isDesktop ? '1fr 1fr' : '1fr'}
                 gap={4}
             >
@@ -124,9 +116,12 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                     if (input?.min) label += `от ${input.min}`;
                     if (input?.max) label += ` до ${input.max}`;
 
+                    if (input?.query) return (
+                        <AsyncSelect selectProps={{ ...register(input.name as string) }} {...input} />
+                    );
                     if (input.type === 'select' && input?.selects) {
                         return (
-                            <Box display='flex' flexDirection='column'>
+                            <Box display="flex" flexDirection="column">
                                 {input?.placeholder && (
                                     <InputLabel>{input?.placeholder}</InputLabel>
                                 )}
@@ -134,7 +129,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                                     {...register(input.name as string)}
                                     label={input.placeholder ?? ''}
                                     defaultValue={input.selects[0]}
-                                    color='info'
+                                    color="info"
                                     required={input.required}
                                 >
                                     {input.selects.map((option, index) => {
@@ -154,7 +149,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                     return (
                         <TextField
                             {...register(input.name as string)}
-                            color='info'
+                            color="info"
                             sx={{
                                 input: {
                                     '&:disabled': {
@@ -197,7 +192,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
 
             {error && <Typography color={red[300]}>{error}</Typography>}
 
-            <Button type='submit' variant='contained'>
+            <Button type="submit" variant="contained">
                 {submitButton?.label || 'Отправить'}
             </Button>
 
@@ -205,7 +200,7 @@ export function FormBuilder<T extends { [K in keyof T]: string }>({
                 open={openSnackbar}
                 autoHideDuration={2000}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                message='Данные отправлены'
+                message="Данные отправлены"
                 onClose={() => setOpenSnackbar(false)}
             />
         </Box>

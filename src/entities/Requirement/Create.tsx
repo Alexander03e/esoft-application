@@ -1,10 +1,15 @@
 import { Create } from '@/Components/Create.tsx';
-import { Inputs } from './Inputs.ts';
+import { Inputs } from './Inputs.tsx';
+import { useCreateStore } from '@/Store/createSlice';
 
 export const RequirementCreate = () => {
-
-    // Сущность создания предложения
+    const { customInputs, options } = useCreateStore();
+    const defaultValues = options?.defaultValues || {};
     return (
-        <Create inputs={Inputs} />
-    )
-}
+        <Create
+            formProps={{ defaultValues, specialAreaType: options?.specialType }}
+            customLabel={options?.customLabel}
+            inputs={customInputs || Inputs}
+        />
+    );
+};
