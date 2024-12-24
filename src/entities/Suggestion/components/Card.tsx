@@ -2,11 +2,16 @@ import { ISuggestionListItem } from '../types.ts';
 import { Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material';
 import { DeleteButton } from '@/Components/buttons/DeleteButton.tsx';
 import { EditButton } from '@/Components/buttons/EditButton.tsx';
+import { useNavigate } from 'react-router-dom';
 
 type Props = ISuggestionListItem
 export const SuggestionCard = ({ ...suggestion }: Props) => {
-    return <Card variant="outlined" sx={{ minWidth: '300px' }}>
+    const navigate = useNavigate();
+    return <Card variant="outlined"
+                 sx={{ minWidth: '300px' }}>
         <CardHeader
+            sx={{ cursor: 'pointer' }}
+            onClick={() => navigate(`${suggestion.id}`)}
             title={`Предложение ${suggestion.id}`}
         />
         <CardContent>

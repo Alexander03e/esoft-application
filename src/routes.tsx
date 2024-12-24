@@ -1,4 +1,3 @@
- 
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './shared/components/layout/Layout';
 import { Error } from './shared/components/ui/Error';
@@ -9,6 +8,7 @@ import { Estate } from './entities/Estate';
 import { Requirement } from './entities/Requirement';
 import { Mobile } from './entities/Mobile';
 import { Suggestion } from './entities/Suggestion';
+import { Transaction } from './entities/Transaction';
 
 export const AppRoutes = () => {
     // Роутинг приложения
@@ -23,6 +23,7 @@ export const AppRoutes = () => {
                     <Route path={`${PATHS.REALTOR.ESTATE.ABSOLUTE}/*`} element={<Estate />} />
                     <Route path={`${PATHS.REALTOR.MOBILE.ABSOLUTE}/*`} element={<Mobile />} />
                     <Route path={`${PATHS.REALTOR.SUGGESTION.ABSOLUTE}/*`} element={<Suggestion />} />
+                    <Route path={`${PATHS.REALTOR.TRANSACTION.ABSOLUTE}/*`} element={<Transaction />} />
                     <Route
                         path={`${PATHS.REALTOR.REQUIREMENT.ABSOLUTE}/*`}
                         element={<Requirement />}

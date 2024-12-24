@@ -15,16 +15,16 @@ export const PATHS = {
         },
 
         MOBILE: {
-            ABSOLUTE: "/realtor/mobile",
-            CREATE: "/realtor/mobile/create",
-            UPDATE: "/realtor/mobile/update/:id"
+            ABSOLUTE: '/realtor/mobile',
+            CREATE: '/realtor/mobile/create',
+            UPDATE: '/realtor/mobile/update/:id',
         },
 
         SUGGESTION: {
-            INDEX: "/suggestion",
-            ABSOLUTE: "/realtor/suggestion",
-            CREATE: "/realtor/suggestion/create",
-            UPDATE: "/realtor/suggestion/update/:id"
+            INDEX: '/suggestion',
+            ABSOLUTE: '/realtor/suggestion',
+            CREATE: '/realtor/suggestion/create',
+            UPDATE: '/realtor/suggestion/update/:id',
         },
 
         CLIENTS: {
@@ -42,10 +42,16 @@ export const PATHS = {
         },
         REQUIREMENT: {
             INDEX: '/requirement',
-            ABSOLUTE: "/realtor/requirement",
-            CREATE: "/realtor/requirement/create",
-            UPDATE: "/realtor/requirement/update/:id",
-        }
+            ABSOLUTE: '/realtor/requirement',
+            CREATE: '/realtor/requirement/create',
+            UPDATE: '/realtor/requirement/update/:id',
+        },
+        TRANSACTION: {
+            INDEX: '/transaction',
+            ABSOLUTE: '/realtor/transaction',
+            CREATE: '/realtor/transaction/create',
+            UPDATE: '/realtor/transaction/update/:id',
+        },
     },
 
     CLIENT: {
@@ -62,8 +68,9 @@ export const ENTITIES = {
     ESTATE: 'estate',
     AGENT: 'agent',
     REQUIREMENT: 'requirement',
-    EVENT: "event",
-    SUGGESTION: "suggestion"
+    EVENT: 'event',
+    SUGGESTION: 'suggestion',
+    TRANSACTION: 'transaction',
 };
 
 type TRoleWithoutNull = Exclude<TRole, null>;
@@ -78,53 +85,60 @@ export const USER_MENU: Record<TRoleWithoutNull, Record<string, string>> = {
         [PATHS.REALTOR.CLIENTS.ABSOLUTE]: 'Клиенты',
         [PATHS.REALTOR.ESTATE.ABSOLUTE]: 'Недвижимость',
         [PATHS.REALTOR.REQUIREMENT.ABSOLUTE]: 'Потребности',
-        [PATHS.REALTOR.SUGGESTION.ABSOLUTE]: "Предложения"
+        [PATHS.REALTOR.SUGGESTION.ABSOLUTE]: 'Предложения',
+        [PATHS.REALTOR.TRANSACTION.ABSOLUTE]: 'Сделки',
     },
 };
 
 
 export const TRANSLATES: Record<string, Record<string, string>> = {
     [ENTITIES.CLIENT]: {
-        index: "Клиенты",
-        show: "клиента",
-        create: "клиента",
-        edit: "клиента"
+        index: 'Клиенты',
+        show: 'клиента',
+        create: 'клиента',
+        edit: 'клиента',
     },
     [ENTITIES.AGENT]: {
-        index: "Риелторы",
-        show: "риелтора",
-        create: "риелтора",
-        edit: "риелтора"
+        index: 'Риелторы',
+        show: 'риелтора',
+        create: 'риелтора',
+        edit: 'риелтора',
     },
     [ENTITIES.ESTATE]: {
-        index: "Недвижимость",
-        show: "недвижимость",
-        create: "недвижимость",
-        edit: "недвижимости"
+        index: 'Недвижимость',
+        show: 'недвижимость',
+        create: 'недвижимость',
+        edit: 'недвижимости',
     },
     [ENTITIES.REQUIREMENT]: {
-        index: "Потребности",
-        show: "потребность",
-        create: "потребности",
-        edit: "потребности"
+        index: 'Потребности',
+        show: 'потребность',
+        create: 'потребности',
+        edit: 'потребности',
     },
     [ENTITIES.EVENT]: {
-        index: "Событие",
-        show: "событие",
-        create: "события",
-        edit: "событие"
+        index: 'Событие',
+        show: 'событие',
+        create: 'события',
+        edit: 'событие',
     },
     [ENTITIES.SUGGESTION]: {
-        index: "Предложения",
-        show: "предложение",
-        create: "предложение",
-        edit: "предложение"
-    }
-}
+        index: 'Предложения',
+        show: 'предложение',
+        create: 'предложение',
+        edit: 'предложение',
+    },
+    [ENTITIES.TRANSACTION]: {
+        index: 'Сделки',
+        show: 'сделку',
+        create: 'сделку',
+        edit: 'сделки',
+    },
+};
 
 
 export const ESTATE_TYPES = {
     FLAT: 'Квартира',
-    AREA: "Земля",
-    HOUSE: "Дом"
-}
+    AREA: 'Земля',
+    HOUSE: 'Дом',
+};

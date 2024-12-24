@@ -14,6 +14,7 @@ import { DeleteButton } from '@/Components/buttons/DeleteButton.tsx';
 import { EditButton } from '@/Components/buttons/EditButton.tsx';
 import { IClient } from '../../Clients/types.ts';
 import { IAgent } from '../../Agents/types.ts';
+import { useNavigate } from 'react-router-dom';
 
 type Props = Omit<IRequirement, 'client' | 'agent'> & {
     client: IClient
@@ -41,11 +42,14 @@ export const RequirementCard: React.FC<Props> = ({
                                                      maxCountOfFloors,
                                                      transaction,
                                                  }) => {
+
+    const navigate = useNavigate();
     // Карточка предложений
     return (
         <Card sx={{ margin: 'auto', mt: 2 }}>
             <CardContent>
-                <Typography variant="h5" component="div" gutterBottom>
+                <Typography sx={{ cursor: 'pointer' }} onClick={() => navigate(`${id}`)}
+                            variant="h5" component="div" gutterBottom>
                     Потребность №{id}
                 </Typography>
                 <Grid container spacing={2}>

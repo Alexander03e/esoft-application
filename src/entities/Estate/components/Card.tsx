@@ -5,6 +5,7 @@ import { EditButton } from '@/Components/buttons/EditButton';
 import { DeleteButton } from '@/Components/buttons/DeleteButton';
 import HomeIcon from '@mui/icons-material/Home';
 import { ESTATE_TYPES } from '@/Shared/consts';
+import { useNavigate } from 'react-router-dom';
 
 export const EstateCard = (props: IEstate): React.ReactElement => {
     const {
@@ -23,15 +24,17 @@ export const EstateCard = (props: IEstate): React.ReactElement => {
     } = props;
     const noValue = 'Не указано';
 
+    const navigate = useNavigate();
     return (
         <Card sx={{ margin: 2, padding: 2 }}>
             <CardContent>
-                <Typography gutterBottom sx={{ color: 'text.secondary' }}>
+                <Typography onClick={() => navigate(`${id}`)} gutterBottom
+                            sx={{ color: 'text.secondary', cursor: 'pointer' }}>
                     ID: {id}
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid size={{ xs: 12 }}>
-                        <Typography variant='h6' component='div'>
+                        <Typography variant="h6" component="div">
                             <LocationOnIcon sx={{ verticalAlign: 'middle', marginRight: 1 }} />
                             {city || noValue}, {street || noValue}, {homeNumber || noValue},{' '}
                             {flatNumber || noValue}

@@ -3,15 +3,17 @@ import { ReactElement } from 'react';
 import { IAgent } from '../types';
 import { EditButton } from '@/Components/buttons/EditButton';
 import { DeleteButton } from '@/Components/buttons/DeleteButton';
+import { useNavigate } from 'react-router-dom';
 
 export const AgentCard = (props: IAgent): ReactElement => {
     const { firstname, lastname, patronymic, id, proportion } = props;
     const noValue = 'Не указано';
-
+    const navigate = useNavigate();
     return (
         <Card>
             <CardContent>
-                <Typography gutterBottom sx={{ color: 'text.secondary' }}>
+                <Typography onClick={() => navigate(`${id}`)} gutterBottom
+                            sx={{ color: 'text.secondary', cursor: 'pointer' }}>
                     {id}
                 </Typography>
                 <Typography>Имя: {firstname || noValue}</Typography>

@@ -5,6 +5,7 @@ import { ENTITIES } from '@/Shared/consts';
 import { RequirementMain } from './Main';
 import { RequirementCreate } from './Create.tsx';
 import { RequirementEdit } from './Edit.tsx';
+import { ShowRequirement } from './Show.tsx';
 
 export const Requirement = () => {
     const { setResource } = useAppStore();
@@ -13,10 +14,11 @@ export const Requirement = () => {
     }, []);
     return (
         <Routes>
-            <Route path='/' element={<RequirementMain />} />
-            <Route path='/create' element={<RequirementCreate />} />
-            <Route path='/edit/:id' element={<RequirementEdit />} />
-            <Route path='*' element={<Navigate to='/estate' />} />
+            <Route path="/" element={<RequirementMain />} />
+            <Route path="/create" element={<RequirementCreate />} />
+            <Route path="/edit/:id" element={<RequirementEdit />} />
+            <Route path=":id" element={<ShowRequirement />} />
+            <Route path="*" element={<Navigate to="/realtor/requirement" />} />
         </Routes>
     );
 };

@@ -5,6 +5,7 @@ import { ENTITIES } from '@/Shared/consts';
 import { SuggestionMain } from './Main.tsx';
 import { SuggestionCreate } from './Create.tsx';
 import { SuggestionEdit } from './Edit.tsx';
+import { ShowSuggestion } from './Show.tsx';
 
 export const Suggestion = () => {
     const { setResource } = useAppStore();
@@ -16,7 +17,8 @@ export const Suggestion = () => {
             <Route path="/" element={<SuggestionMain />} />
             <Route path="/create" element={<SuggestionCreate />} />
             <Route path="/edit/:id" element={<SuggestionEdit />} />
-            <Route path="*" element={<Navigate to="/estate" />} />
+            <Route path="/:id" element={<ShowSuggestion />} />
+            <Route path="*" element={<Navigate to="/realtor/suggestion" />} />
         </Routes>
     );
 };

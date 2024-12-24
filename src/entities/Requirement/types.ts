@@ -1,3 +1,6 @@
+import { IClient } from '../Clients/types.ts';
+import { IAgent } from '../Agents/types.ts';
+
 export interface IRequirement {
     id: number;
     client: number;
@@ -22,8 +25,8 @@ export interface IRequirement {
 
 export interface IRequirementResponse {
     id: number;
-    client: {id: number};
-    agent: {id: number};
+    client: IClient;
+    agent: IAgent;
     type: 'FLAT' | 'HOUSE' | 'AREA';
     city: string;
     street: string;
