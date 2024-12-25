@@ -20,6 +20,7 @@ export const Show = ({ children, render, resource, id }: IProps): ReactElement =
         navigate(-1);
     };
 
+    // Определение заголовка в зависимости от текущего ресурса
     const TITLE = `Детали ${
         TRANSLATES[resource ?? ''][EWindowType.SHOW.toString().toLowerCase()] ?? ''
     }`;

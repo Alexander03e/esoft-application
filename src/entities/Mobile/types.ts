@@ -1,9 +1,11 @@
-export type TEvent = 'MeetingWithTheClient' | "ShowingAnObject" | "ScheduledCall"
+export type TEvent = 'MeetingWithTheClient' | 'ShowingAnObject' | 'ScheduledCall';
 
 export interface IEvent {
     id: number;
     dateTime: string;
-    typesOfIvent: TEvent
+    typesOfIvent: TEvent;
     comment: string;
-    agent: number
+    agent: number;
+    startDateTime?: string;
+    endDateTime?: string;
 }

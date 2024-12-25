@@ -26,7 +26,7 @@ export const Toolbar = ({
             <Box sx={{ ...sx }} display='flex' alignItems='center' justifyContent='space-between'>
                 {name && <Typography fontSize='24px'>{name}</Typography>}
 
-                <Box gap='12px' display='flex' alignItems='center'>
+                <Box flexWrap={'wrap'} gap='12px' display='flex' alignItems='center'>
                     {children}
                 </Box>
             </Box>

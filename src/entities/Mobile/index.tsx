@@ -9,9 +9,17 @@ import { Main } from './Main';
 
 export const Mobile = () => {
     const { setResource } = useAppStore();
+    // const { isDesktop } = useMedia();
+    // const navigate = useNavigate();
     useEffect(() => {
         setResource(ENTITIES.EVENT);
     }, []);
+
+    // useEffect(() => {
+    //     if (isDesktop) {
+    //         navigate('/realtor/');
+    //     }
+    // }, [isDesktop]);
     return (
         <Box display='flex' flexDirection='column' sx={{ minHeight: '100dvh', height: '1px' }}>
             <Menu />

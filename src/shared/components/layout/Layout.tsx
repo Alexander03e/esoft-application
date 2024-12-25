@@ -5,6 +5,7 @@ import { PATHS } from '@/Shared/consts';
 import { useMedia } from '@/Shared/hooks/useBreakpoints';
 import { useLayoutEffect } from 'react';
 import { useMobileStore } from '@/Store/mobileSlice';
+import styles from './style.module.scss';
 
 export const Layout = () => {
     const { pathname } = useLocation();
@@ -22,18 +23,22 @@ export const Layout = () => {
         }
     }, []);
 
+    const isDesk = true;
+
     return (
         <>
-            {!isDesktop && <Outlet />}
-            {isDesktop && (
-                <Grid container overflow={'hidden'}>
-                    {isDesktop && (
-                        <Grid size={{ sm: 3 }}>{pathname !== PATHS.INDEX && <Menu />}</Grid>
+            {/*{!isDesktop && <Outlet />}*/}
+            {isDesk && (
+                <Box className={styles.container} overflow={'hidden'}>
+                    {isDesk && (
+                        <Box className={styles.menu} size={{ sm: 3 }}>
+                            {pathname !== PATHS.INDEX && <Menu />}
+                        </Box>
                     )}
-                    <Grid height='100vh' overflow='auto' size={{ sm: 9 }}>
+                    <Box overflow='auto' size={{ sm: 9 }}>
                         <Box
                             sx={
-                                isDesktop
+                                isDesk
                                     ? {
                                           backgroundColor: '#e7e7e7',
                                           minHeight: '100vh',
@@ -47,8 +52,8 @@ export const Layout = () => {
                         >
                             <Outlet />
                         </Box>
-                    </Grid>
-                </Grid>
+                    </Box>
+                </Box>
             )}
         </>
     );

@@ -12,8 +12,8 @@ import { EventCard } from './components/Card';
 const sortEvents = (events: IEvent[] | undefined) => {
     if (!events) return [];
     const today = new Date().toISOString().split('T')[0];
-    const todayEvents = events.filter(event => event.dateTime.split('T')[0] === today);
-    const otherEvents = events.filter(event => event.dateTime.split('T')[0] !== today);
+    const todayEvents = events.filter(event => event?.startDateTime?.split('T')[0] === today);
+    const otherEvents = events.filter(event => event?.startDateTime?.split('T')[0] !== today);
     return { todayEvents, otherEvents };
 };
 
